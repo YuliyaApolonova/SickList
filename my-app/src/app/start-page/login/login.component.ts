@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 
 import {User} from './user';
 
@@ -7,15 +7,11 @@ import {User} from './user';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent  {
+
+  model = new User('', '');
   submitted = false;
 
   onSubmit() { this.submitted = true; }
-
-  constructor() { }
-  model = new User('', '');
-
-  ngOnInit() {
-  }
 
 }

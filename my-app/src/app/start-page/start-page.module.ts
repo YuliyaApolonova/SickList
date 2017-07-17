@@ -3,14 +3,21 @@ import { CommonModule } from '@angular/common';
 
 import {StartPageComponent} from "./start-page.component";
 import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
+
+import {StartPageRoutingModule} from './start-page-routing.module';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    StartPageRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [
     StartPageComponent,
-    LoginComponent
+    LoginComponent,
+    RegistrationComponent
   ]
 })
 export class StartPageModule { }

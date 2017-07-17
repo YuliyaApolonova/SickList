@@ -1,0 +1,12 @@
+<p>
+  sick-list works!
+</p>
+
+<h2> List of your sick-lists:</h2>
+
+<ul class="heroes">
+  <li *ngFor="let list of lists" >
+    <span >{{list.dateFrom}}</span>
+    <span>{{list.dateTo}}</span>
+  </li>
+</ul>
