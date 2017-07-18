@@ -7,15 +7,33 @@ import { RouterModule, Routes } from '@angular/router';
 
 import {SickListComponent} from './sick-list/sick-list.component';
 import {AddListComponent} from './add-list/add-list.component';
+import {HomeComponent} from './home.component'
+import { AuthGuard }    from '../auth-guard.service';
+const homeRoutes: Routes = [
 
-const routes: Routes = [
-  { path: 'home', redirectTo: 'home/addList', pathMatch: 'full' },
-  { path: 'home/list',  component: SickListComponent },
-  { path: 'home/addList', component: AddListComponent }
-];
+  {
+    path: 'home',
+    component: HomeComponent,
+    // canActivate: [AuthGuard],
+    children: [
+      // {
+      //   path: '',
+      //   component: HomeComponent
+      // },
+          {
+            path: 'list',
+            component: SickListComponent
+          },
+          {
+            path: 'addList',
+            component: AddListComponent
+          }
+        ]
+      }
+    ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
+  imports: [ RouterModule.forChild(homeRoutes) ],
   exports: [ RouterModule ]
 })
 export class HomeRoutingModule {}

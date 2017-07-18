@@ -1,8 +1,16 @@
-<p>
-  home works!
-</p>
+
 <nav>
   <a class='col-lg-offset-5 col-lg-1 col-md-offset-5 col-md-1' routerLink="/home/list" routerLinkActive="active">List</a>
   <a class='col-lg-1 col-md-1' routerLink="/home/addList" routerLinkActive="active">Add new</a>
-  <router-outlet></router-outlet>
 </nav>
+  <router-outlet></router-outlet>
+  <div>
+     <div id="vacations" class="col-lg-offset-4 col-lg-2 col-md-offset-4 col-md-2 col-sm-6 col-xs-6">
+       Vacations:   {{vacations}}
+     </div>
+     <div id="sick-lists" class=" col-lg-2 col-md-2 col-sm-6 col-xs-6">
+
+         Sick-lists:  {{sickLists}}
+     </div>
+  </div>
+

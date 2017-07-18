@@ -10,7 +10,9 @@ export class AddListComponent {
 
   constructor() { }
 
-  model = new SickList('', '');
+  model = new SickList('', '','' );
+
+  types = ['vacation', 'sick-list'];
 
   submitted = false;
 

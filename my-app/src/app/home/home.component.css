@@ -4,3 +4,25 @@ a{
   text-align: center;
 
 }
+#vacations{
+  border-radius: 10%;
+  height: 150px;
+  color: white;
+  background-color: #42A948;
+  text-align: center;
+  line-height: 150px;
+  margin-right: 10px;
+  font-size: 2vw;
+
+}
+#sick-lists{
+  border-radius: 10%;
+  height: 150px;
+  color: white;
+  background-color: dodgerblue;
+  text-align: center;
+  line-height: 150px;
+  font-size: 2vw;
+
+}
+

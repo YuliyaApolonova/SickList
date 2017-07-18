@@ -10,5 +10,6 @@ label{
   float: left;
 }
 h1{
-  text-align: center;
+  text-align: left;
+  font-size: 2vw;
 }

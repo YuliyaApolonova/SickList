@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+ vacations: number;
+ sickLists: number;
 
   constructor() { }
 
   ngOnInit() {
+    this.vacations = 14;
+    this.sickLists = 5;
   }
 
 }

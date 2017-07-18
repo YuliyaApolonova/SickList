@@ -10,15 +10,20 @@ import { SickListComponent } from './sick-list/sick-list.component';
 
 import {HomeRoutingModule} from './home-routing.module';
 
+import {FormsModule} from '@angular/forms';
+import { AdminComponent } from './admin/admin.component';
+
 @NgModule({
   imports: [
     CommonModule,
-    HomeRoutingModule
+    HomeRoutingModule,
+    FormsModule
   ],
   declarations: [
     HomeComponent,
     AddListComponent,
-    SickListComponent
+    SickListComponent,
+    AdminComponent
   ]
 })
 export class HomeModule { }
