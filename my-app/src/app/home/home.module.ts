@@ -13,11 +13,15 @@ import {HomeRoutingModule} from './home-routing.module';
 import {FormsModule} from '@angular/forms';
 import { AdminComponent } from './admin/admin.component';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
+
 @NgModule({
   imports: [
     CommonModule,
     HomeRoutingModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   declarations: [
     HomeComponent,

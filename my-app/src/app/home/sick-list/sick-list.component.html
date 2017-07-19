@@ -1,10 +1,12 @@
 
 <h2> The whole list:</h2>
 <div>
-<ul class="heroes">
+<ul>
   <li *ngFor="let list of lists" >
     <span >{{list.dateFrom}}</span>
     <span>{{list.dateTo}}</span>
+    <span>{{list.type}}</span>
+    <button (click)='deleteVacation()' *ngIf="checkDeletePerm(list.dateFrom)">X</button>
   </li>
 </ul>
 </div>

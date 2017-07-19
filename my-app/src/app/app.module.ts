@@ -9,7 +9,8 @@ import {AppRoutingModule} from "./app-routing.module";
 import {StartPageModule} from "./start-page/start-page.module";
 import {HomeModule} from "./home/home.module";
 
-
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {CurrentDataService} from "./current-data.service";
 
 @NgModule({
   declarations: [
@@ -21,10 +22,12 @@ import {HomeModule} from "./home/home.module";
     AppRoutingModule,
     ReactiveFormsModule,
     StartPageModule,
-    HomeModule
+    HomeModule,
+    NgbModule.forRoot()
+
 
   ],
-  providers: [],
+  providers: [CurrentDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

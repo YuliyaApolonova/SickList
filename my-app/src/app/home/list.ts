@@ -3,8 +3,8 @@
  */
 export class SickList{
   constructor(
-    public dateFrom: string,
-    public dateTo: string,
+    public dateFrom: object,
+    public dateTo: object,
     public type: string
   ) {  }
 }

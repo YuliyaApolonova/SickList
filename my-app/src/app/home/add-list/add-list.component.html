@@ -1,33 +1,75 @@
 <div>
 <h3> Add new sick-list: </h3>
 <form  class='col-lg-offset-4 col-lg-4 col-md-offset-4 col-md-4' #addListForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
-  <div class="form-group">
-  <label for="dateFrom">From:</label>
-  <input type="text" id="dateFrom" class="form-control"
-         [(ngModel)]="model.dateFrom"
-         name="dateFrom" #dateFrom="ngModel"
-         pattern="[0-9]{2}?\.[0-9]{2}?\.[0-9]{4}"
-         required>
-    <div [hidden]="dateFrom.valid || dateFrom.pristine"
-         class="alert alert-danger">
+  <!--<div class="form-group">-->
+  <!--<label for="dateFrom">From:</label>-->
 
-      <div [hidden]="!dateFrom.hasError('required')">Filed is required</div>
-      <div [hidden]="!dateFrom.hasError('pattern')">Date must be in format dd.mm.yyyy</div>
-    </div>
-  </div>
+  <!--<input type="text" id="dateFrom" class="form-control"-->
+         <!--[(ngModel)]="model.dateFrom"-->
+         <!--name="dateFrom" #dateFrom="ngModel"-->
+         <!--pattern="[0-9]{2}?\.[0-9]{2}?\.[0-9]{4}"-->
+         <!--required>-->
+
+    <!--<input class="form-control"-->
+           <!--ngbDatepicker #d="ngbDatepicker"-->
+           <!--(focus)="d.open()"-->
+           <!--[minDate]="minDate"-->
+           <!--required>-->
+    <!--<div class="input-group-addon" (click)="d.toggle()">-->
+      <!--<i class="fa fa-calendar" aria-hidden="true"></i>-->
+    <!--</div>-->
+
+
+    <!--<div [hidden]="dateFrom.valid || dateFrom.pristine"-->
+         <!--class="alert alert-danger">-->
+
+      <!--<div [hidden]="!dateFrom.hasError('required')">Filed is required</div>-->
+      <!--<div [hidden]="!dateFrom.hasError('pattern')">Date must be in format dd.mm.yyyy</div>-->
+    <!--</div>-->
+  <!--</div>-->
+
   <div class="form-group">
-    <label for="dateTo">To:</label>
-    <input type="text" id="dateTo" class="form-control"
-           [(ngModel)]="model.dateTo"
-           name="dateTo" #dateTo="ngModel"
-           pattern="[0-9]{2}?\.[0-9]{2}?\.[0-9]{4}"
-           required>
-    <div [hidden]="dateTo.valid || dateTo.pristine"
-         class="alert alert-danger">
-      <div [hidden]="!dateTo.hasError('required')">Filed is required</div>
-      <div [hidden]="!dateTo.hasError('pattern')">Date must be in format dd.mm.yyyy</div>
+    <label for="dateFrom">From: </label>
+    <div class="input-group">
+      <input class="form-control" placeholder="yyyy-mm-dd"
+             id="dateFrom"
+             name="dp1" [(ngModel)]="model.dateFrom"
+             placement="bottom-right"
+             [minDate]="minDate"
+             ngbDatepicker #d="ngbDatepicker">
+      <div class="input-group-addon" (click)="d.toggle()" >
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+      </div>
     </div>
   </div>
+  <!--<div class="form-group">-->
+    <!--<label for="dateTo">To:</label>-->
+    <!--<input type="text" id="dateTo" class="form-control"-->
+           <!--[(ngModel)]="model.dateTo"-->
+           <!--name="dateTo" #dateTo="ngModel"-->
+           <!--pattern="[0-9]{2}?\.[0-9]{2}?\.[0-9]{4}"-->
+           <!--required>-->
+    <!--<div [hidden]="dateTo.valid || dateTo.pristine"-->
+         <!--class="alert alert-danger">-->
+      <!--<div [hidden]="!dateTo.hasError('required')">Filed is required</div>-->
+      <!--<div [hidden]="!dateTo.hasError('pattern')">Date must be in format dd.mm.yyyy</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <div class="form-group">
+    <label for="dateTo">From: </label>
+    <div class="input-group">
+      <input class="form-control" placeholder="yyyy-mm-dd"
+             id="dateTo"
+             name="dp2" [(ngModel)]="model.dateTo"
+             placement="bottom-right"
+             [minDate]="minDate"
+             ngbDatepicker #d2="ngbDatepicker">
+      <div class="input-group-addon" (click)="d2.toggle()" >
+        <i class="fa fa-calendar" aria-hidden="true"></i>
+      </div>
+    </div>
+  </div>
+
   <div class="form-group">
     <label for="type">Type:</label>
     <select id="type" class="form-control"
