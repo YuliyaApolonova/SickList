@@ -42,6 +42,19 @@ export class GetListsService {
       .catch(this.handleError);
   }
 
+  getVacationInd(): Observable<number> {
+    const url = this.listUrl + '/vac_count';
+    return this.http.get(url, {headers: this.headers})
+      .map( response => response.json().data as number)
+      .catch(this.handleError);
+  }
+
+  getSickInd(): Observable<number> {
+    const url = this.listUrl + '/sick_count';
+    return this.http.get(url, {headers: this.headers})
+      .map( response => response.json().data as number)
+      .catch(this.handleError);
+  }
   private handleError(error: any): Observable<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Observable.throw(error.message || error);

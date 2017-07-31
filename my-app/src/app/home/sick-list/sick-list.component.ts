@@ -8,7 +8,8 @@ import {GetListsService} from '../../get-lists.service';
 @Component({
   selector: 'app-sick-list',
   templateUrl: './sick-list.component.html',
-  styleUrls: ['./sick-list.component.css']
+  styleUrls: ['./sick-list.component.css'],
+  providers: [GetListsService]
 })
 export class SickListComponent implements OnInit {
 
@@ -49,7 +50,7 @@ export class SickListComponent implements OnInit {
       return false;
     }
     this.getListsService.removeList(list.id)
-      .subscribe(this.lists = this.lists.filter(l => l!== list));
+      .subscribe(() => this.lists = this.lists.filter(l => l!== list));
     return true;
   }
 }
