@@ -6,7 +6,7 @@
     <span >{{list.dateFrom}}</span>
     <span>{{list.dateTo}}</span>
     <span>{{list.type}}</span>
-    <button (click)='deleteVacation()' *ngIf="checkDeletePerm(list.dateFrom)">X</button>
+    <button (click)='deleteVacation(list)' *ngIf="checkDeletePerm(list.dateFrom)">X</button>
   </li>
 </ul>
 </div>

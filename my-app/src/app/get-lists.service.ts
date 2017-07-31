@@ -6,6 +6,7 @@
  */
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import {Headers} from '@angular/http';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -17,13 +18,27 @@ import {FormatList} from './home/sick-list/dbFormatList';
 @Injectable()
 export class GetListsService {
 
-  private listUrl = 'sick_list';
+  private listUrl = 'list';
+  private headers = new Headers({'Content-Type': 'application/json'});
 
   constructor(private http: Http) { }
 
   getLists(): Observable<FormatList[]> {
     return this.http.get(this.listUrl)
       .map(response => response.json().data as FormatList[])
+      .catch(this.handleError);
+  }
+
+  createList(from, to, type): Observable<FormatList>{
+    return this.http.post(this.listUrl+'/add', JSON.stringify({from: from, to: to, type: type}), {headers: this.headers})
+      .map(response => response.json().data as FormatList)
+      .catch(this.handleError);
+  }
+
+  removeList(id: number): Observable<void> {
+    const url = this.listUrl+`/remove`+`/${id}`;
+    return this.http.delete(url, {headers: this.headers})
+      .map(() => null)
       .catch(this.handleError);
   }
 

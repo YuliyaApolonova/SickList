@@ -43,11 +43,13 @@ export class SickListComponent implements OnInit {
     this.getListsService.getLists().subscribe(lists => this.lists = lists);
   }
 
-  deleteVacation(): boolean {
+  deleteVacation(list: FormatList): boolean {
     const res = confirm('Are you sure to delete this vacation?');
     if (!res) {
       return false;
     }
+    this.getListsService.removeList(list.id)
+      .subscribe(this.lists = this.lists.filter(l => l!== list));
     return true;
   }
 }

@@ -8,20 +8,23 @@ import {User} from './user';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent  {
-  users: User[] = [
-    {'username': 'Vasya', 'password': 'Vasya'}
-  ];
+        /****stub***/
+  // users: User[] = [
+  //   {'username': 'Vasya', 'password': 'Vasya'}
+  // ];
+
   model = new User('', '');
   submitted = false;
 
   onSubmit(): void {
-    const model = this.model;
     this.submitted = true;
-    this.users.forEach(function(item, i, arr){
-      if(model.username === item.username && model.password === item.password){
-        console.log('Autirised as ' + item.username);
-      }
-    })
+          /****stub***/
+    // const model = this.model;
+    // this.users.forEach(function(item, i, arr){
+    //   if(model.username === item.username && model.password === item.password){
+    //     console.log('Autirised as ' + item.username);
+    //   }
+    // })
 
   }
 

@@ -3,6 +3,7 @@
  */
 export class FormatList {
   constructor(
+    public id: string,
     public dateFrom: string,
     public dateTo: string,
     public type: string
