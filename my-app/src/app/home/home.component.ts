@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.vacations = 14;
     this.sickLists = 5;
   }

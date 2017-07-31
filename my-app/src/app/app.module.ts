@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -10,6 +10,7 @@ import {StartPageModule} from "./start-page/start-page.module";
 import {HomeModule} from "./home/home.module";
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 import {CurrentDataService} from "./current-data.service";
 
 @NgModule({

@@ -1,6 +1,15 @@
-a{
-  text-decoration: none;
-  font-size: 20px;
-  text-align: center;
+a:visited {
+  color: darkblue; }
 
-}
+a:hover {
+  color: #62c2e4; }
+
+a {
+  font-size: 3.5vh;
+  text-decoration: none;
+  cursor: pointer; }
+
+nav li {
+  list-style-type: none; }
+
+/*# sourceMappingURL=start-page.component.css.map */

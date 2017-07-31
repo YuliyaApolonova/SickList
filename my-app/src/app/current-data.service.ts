@@ -1,27 +1,25 @@
-/**
- * Created by user on 19.07.17.
- */
+
 /**
  * Created by user on 18.07.17.
  */
 
 import { Injectable } from '@angular/core';
-
+import {IDate} from './date';
 
 @Injectable()
 export class CurrentDataService {
 
-  getCurrentDate() {
+  getCurrentDate(): IDate {
 
-    let today = new Date();
-    let day = today.getDay();
-    let month = today.getMonth();
-    let year = today.getFullYear();
+    const today = new Date();
+    const day = today.getDay();
+    const month = today.getMonth();
+    const year = today.getFullYear();
     return {
       year: year,
       month: month,
       day: day
-    }
+    };
   }
 
 }

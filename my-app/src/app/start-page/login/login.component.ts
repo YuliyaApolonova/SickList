@@ -12,6 +12,8 @@ export class LoginComponent  {
   model = new User('', '');
   submitted = false;
 
-  onSubmit() { this.submitted = true; }
+  onSubmit(): void {
+    this.submitted = true;
+  }
 
 }

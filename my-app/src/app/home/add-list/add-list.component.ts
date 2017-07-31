@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 
 import {SickList} from '../list';
+import {IDate} from '../../date';
+import {FormatList} from '../sick-list/dbFormatList';
 
 import {CurrentDataService} from '../../current-data.service';
 
@@ -9,30 +11,45 @@ import {CurrentDataService} from '../../current-data.service';
   templateUrl: './add-list.component.html',
   styleUrls: ['./add-list.component.css']
 })
+
 export class AddListComponent implements OnInit {
 
-  minDate = { year: 2017, month: 6, day:1};
+  minDate: IDate = { year: 2017, month: 1, day: 1 };
 
+  lists: FormatList[] = [
+    {'dateFrom': '2017-03-12', 'dateTo': '2017-04-05', 'type': 'vacation'}
+  ];
 
   constructor(private currentDataService: CurrentDataService) {  }
 
-  model = new SickList(null, null,'' );
+  model = new SickList(null, null, '' ); // в input приходит object
 
   types = ['vacation', 'sick-list'];
 
   submitted = false;
 
-  onSubmit() { this.submitted = true; }
+  onSubmit(): void {
+    this.submitted = true;
+    let dateFrom = this.model.dateFrom.year + '-' + this.model.dateFrom.month + '-' + this.model.dateFrom.day;
+    let dateTo = this.model.dateTo.year + '-' + this.model.dateTo.month + '-' + this.model.dateTo.day;
+    let type = this.model.type;
+    this.lists.push({'dateFrom': dateFrom, 'dateTo': dateTo, 'type': type});
+    console.log(this.lists);
 
-  ngOnInit (){
+    // registerUser(form: NgForm) {
+    //   console.log(form.value);
+      // {email: '...', password: '...'}
+      // ... <-- now use JSON.stringify() to convert form values to json.
+    // }
+  }
+
+  ngOnInit(): void {
    this.setMinDate();
   }
 
- setMinDate() {
+ setMinDate(): void {
 
-   this.minDate.day = this.currentDataService.getCurrentDate().day;
-   this.minDate.month = this.currentDataService.getCurrentDate().month;
-   this.minDate.year = this.currentDataService.getCurrentDate().year;
+   this.minDate = this.currentDataService.getCurrentDate();
 
   }
 

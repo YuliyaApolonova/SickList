@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 
-import {SickList} from '../list';
+import {FormatList} from './dbFormatList';
 
 import {CurrentDataService} from '../../current-data.service';
+import {GetListsService} from '../../get-lists.service';
 
 @Component({
   selector: 'app-sick-list',
@@ -11,43 +12,42 @@ import {CurrentDataService} from '../../current-data.service';
 })
 export class SickListComponent implements OnInit {
 
-  lists = [];
+  lists: FormatList[];
 
-  constructor(private currentDataService: CurrentDataService) { }
+  constructor(private currentDataService: CurrentDataService, private getListsService: GetListsService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getLists();
   }
-  checkDeletePerm(date){ //for delete button on sick-list
 
-    let date_arr = date.split('-');
-    let year = date_arr[0];
-    let month = date_arr[1];
-    let day = date_arr[2];
+  checkDeletePerm(date): boolean { // for delete button on sick-list
 
-    if(parseInt(year) > +this.currentDataService.getCurrentDate().year){ //date  - это строка!!! Put in DB as a string
+    const date_arr = date.split('-');
+    const year = date_arr[0];
+    const month = date_arr[1];
+    const day = date_arr[2];
+
+    if (parseInt(year, 10) > +this.currentDataService.getCurrentDate().year) { // date  - это строка!!! Put in DB as a string
       return true;
     }
-    if(parseInt(month) > +this.currentDataService.getCurrentDate().month){
+    if (parseInt(month, 10) > +this.currentDataService.getCurrentDate().month) {
       return true;
     }
-    if(parseInt(day) > +this.currentDataService.getCurrentDate().day){
+    if (parseInt(day, 10) > +this.currentDataService.getCurrentDate().day) {
       return true;
     }
     return false;
+  }
 
+  getLists(): void {
+    this.getListsService.getLists().subscribe(lists => this.lists = lists);
   }
-  getLists() {
-    //get data from DB
-    this.lists = [
-      {dateFrom: '2017-06-03', dateTo: '2017-08-03', type: 'vacation'},
-      {dateFrom: '2018-08-03', dateTo: '2018-08-06', type: 'vacation'}
-    ]
-  }
-  deleteVacation(){
-    let res = confirm('Are you sure to delete this vacation?')
-    if(!res){
+
+  deleteVacation(): boolean {
+    const res = confirm('Are you sure to delete this vacation?');
+    if (!res) {
       return false;
     }
+    return true;
   }
 }

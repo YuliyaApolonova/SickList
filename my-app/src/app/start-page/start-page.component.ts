@@ -1,6 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-
-import {LoginComponent} from './login/login.component'; //ChildComponent
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-start-page',
@@ -9,7 +7,6 @@ import {LoginComponent} from './login/login.component'; //ChildComponent
 })
 export class StartPageComponent implements OnInit {
 
-  @ViewChild (LoginComponent) loginComponent: LoginComponent;
   constructor() { }
 
   ngOnInit() {
