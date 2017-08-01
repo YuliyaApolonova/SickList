@@ -43,16 +43,16 @@ export class GetListsService {
   }
 
   getVacationInd(): Observable<number> {
-    const url = this.listUrl + '/vac_count';
+    const url = this.listUrl+'/vac_count';
     return this.http.get(url, {headers: this.headers})
-      .map( response => response.json().data as number)
+      .map( response => response.json() as number)
       .catch(this.handleError);
   }
 
   getSickInd(): Observable<number> {
-    const url = this.listUrl + '/sick_count';
+    const url = this.listUrl+'/sick_count';
     return this.http.get(url, {headers: this.headers})
-      .map( response => response.json().data as number)
+      .map( response => response.json() as number)
       .catch(this.handleError);
   }
 

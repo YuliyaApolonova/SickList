@@ -28,6 +28,8 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const index = require('./routes/index');
 const getList = require('./routes/getList');
+const vacationInd = require('./routes/vacationInd');
+const sickInd = require('./routes/sickInd');
 
 const User = require('./models/user');
 
@@ -64,13 +66,10 @@ app.use(cookieParser());
 
 //app.use(express.static(path.join(__dirname, 'public')));
 
-
-// app.use('/', route_index);
-
-// app.use(login);
-
 app.use(index);
 app.use(getList);
+app.use(vacationInd);
+app.use(sickInd);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
