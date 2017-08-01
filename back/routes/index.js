@@ -9,12 +9,13 @@ var router = express.Router();
 //     res.render('index', { title: 'Express' });
 // });
 
-// router.get('/', (req, res) => {
-//     res.send('it works');
-// });
-
-router.get('/', function(req, res) {
-    res.render('index.html');
+router.get('/login', (req, res) => {
+    res.send('it works');
+    console.log('response from /login');
 });
+
+// router.get('/', function(req, res) {
+//     res.render('index.html');
+// });
 
 module.exports = router;

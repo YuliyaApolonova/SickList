@@ -55,12 +55,19 @@ app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+// });
+
 //app.use(express.static(path.join(__dirname, 'public')));
 
 
 // app.use('/', route_index);
 
 // app.use(login);
+
 app.use(index);
 
 // catch 404 and forward to error handler
@@ -70,13 +77,13 @@ app.use(function (req, res, next) {
     next(err);
 });
 
-mongoose.connect(DB, function(err) {
-    if (err) {
-        return err;
-    } else {
-        console.log('Successfully connected to ' + DB);
-    }
-});
+// mongoose.connect(DB, function(err) {
+//     if (err) {
+//         return err;
+//     } else {
+//         console.log('Successfully connected to ' + DB);
+//     }
+// });
 
 // // error handler
 // app.use(function (err, req, res, next) {
