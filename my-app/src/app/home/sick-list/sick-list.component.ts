@@ -19,6 +19,7 @@ export class SickListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLists();
+    console.log(this.lists); //why this.lists = undefined?
   }
 
   checkDeletePerm(date): boolean { // for delete button on sick-list
@@ -41,7 +42,9 @@ export class SickListComponent implements OnInit {
   }
 
   getLists(): void {
-    this.getListsService.getLists().subscribe(lists => this.lists = lists);
+    this.getListsService.getLists().subscribe(lists => {
+      console.log('hellk'+lists);
+      this.lists = lists});
   }
 
   deleteVacation(list: FormatList): boolean {

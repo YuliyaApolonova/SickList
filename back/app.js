@@ -27,6 +27,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
 const index = require('./routes/index');
+const getList = require('./routes/getList');
 
 const User = require('./models/user');
 
@@ -69,6 +70,7 @@ app.use(cookieParser());
 // app.use(login);
 
 app.use(index);
+app.use(getList);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

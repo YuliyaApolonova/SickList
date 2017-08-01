@@ -5,7 +5,7 @@
  * Created by user on 10.07.17.
  */
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import {Headers} from '@angular/http';
 
 import 'rxjs/add/operator/catch';
@@ -25,7 +25,7 @@ export class GetListsService {
 
   getLists(): Observable<FormatList[]> {
     return this.http.get(this.listUrl+ '/list')
-      .map(response => response.json().data as FormatList[])
+      .map((response: Response) => response.json() as FormatList[])
       .catch(this.handleError);
   }
 
