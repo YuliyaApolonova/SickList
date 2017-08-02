@@ -2,6 +2,7 @@ import { Component} from '@angular/core';
 
 import {User} from './user';
 import {GetListsService} from '../../get-lists.service';
+import {AuthService} from './auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,13 +14,17 @@ export class LoginComponent  {
   // users: User[] = [
   //   {'username': 'Vasya', 'password': 'Vasya'}
   // ];
- constructor(private getListsService: GetListsService) { }
+ constructor(private authService: AuthService) { }
   model = new User('', '');
   submitted = false;
   // response = '';
 
   onSubmit(): void {
     this.submitted = true;
+    const username = this.model.username;
+    const password = this.model.password;
+
+    this.authService.login(username, password);
     // this.getListsService.getLog().subscribe(response => this.response = response);
 
           /****stub***/

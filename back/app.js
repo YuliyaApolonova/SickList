@@ -15,16 +15,13 @@ const cors = require('cors');
 
 const logger = require('morgan');
 
-var port = process.env.port || 1337;
+let port = process.env.port || 1337;
 
 const router = express.Router();
 
 const mongoose = require('mongoose');
+
 const DB = "mongodb://localhost/sickLists";
-
-const passport = require('passport');
-
-const LocalStrategy = require('passport-local').Strategy;
 
 const index = require('./routes/index');
 const getList = require('./routes/getList');
@@ -78,24 +75,42 @@ app.use(function (req, res, next) {
     next(err);
 });
 
-// mongoose.connect(DB, function(err) {
-//     if (err) {
-//         return err;
-//     } else {
-//         console.log('Successfully connected to ' + DB);
-//     }
-// });
+                                             /*passport*/
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
 
-// // error handler
-// app.use(function (err, req, res, next) {
-//     // set locals, only providing error in development
-//     res.locals.message = err.message;
-//     res.locals.error = req.app.get('env') === 'development' ? err : {};
-//
-//     // render the error page
-//     res.status(err.status || 500);
-//     res.render('error');
-// });
+var Account = require('./models/account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(expressSession({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
+}));
+
+mongoose.connect(DB, function(err) {
+    if (err) {
+        return err;
+    } else {
+        console.log('Successfully connected to ' + DB);
+    }
+});
+
+// error handler
+app.use(function (err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
+});
 
 // router.get('*', (req,res) => {
 //     res.sendFile('index.html', {root: '../my-app/src'}); // works, but not render components
