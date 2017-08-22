@@ -49,8 +49,8 @@
       <div *ngIf="formErrors.confPassword" class="alert alert-danger">
         {{ formErrors.confPassword }}
       </div>
-      <div class="alert alert-danger" *ngIf="registrationForm.controls.confPassword.errors?.MatchPassword">Password not match</div>
+      <!--<div [hidden]="!registrationForm.controls['confPassword'].hasError('mismatchedPassword')" class="alert alert-danger">Passwords not match</div>-->
     </div>
-    <button  class="btn btn-success" type="password" [disabled]="!registrationForm.valid">Submit</button>
+    <button class="btn btn-success" type="submit" [disabled]="!registrationForm.valid">Submit</button>
   </form>
 </div>

@@ -4,10 +4,12 @@
 /**
  * Created by user on 27.07.17.
  */
-var express = require('express');
-var passport = require('passport');
-var user = require('../models/user');
-var router = express.Router();
+const express = require('express');
+const passport = require('passport');
+const user = require('../models/user');
+const router = express.Router();
+
+
 
 // router.post('/login', function(req, res) {
 //     user.register(new user({ username : req.body.username }), req.body.password, function(err, account) {
@@ -21,20 +23,46 @@ var router = express.Router();
 //     });
 // });
 
-// router.get('/login', function(req, res) {
-//     res.render('login', { user : req.user });
-// });
+ router.post('/login', function(req, res){
+     // console.log(req.body);
+     /*result*/
+     //{ username: 'Vasya', password: 'Vasya' }
+     res.send(true);
+ });
 
-router.post('/login', passport.authenticate('local'), {
-    successRedirect: '/home',
-    failureRedirect: '/login_failure',
-    failureFlash: 'Invalid username or password'
-    }
-)
 
-router.get('/logout', function(req, res) {
+// router.post('/login',  passport.authenticate('local', {
+//     successRedirect: '/login_success',
+//     failureRedirect: '/login_failure', // /login_failure
+//     failureFlash: 'Invalid username or password',
+//     successFlash: 'welcome!'
+//     })
+//
+// );
+
+router.get('/login_success', function(req, res){
+    res.send('All is Ok');
+})
+
+router.get('/login_failure', function(req, res){
+    res.send('authorisation failed');
+})
+
+router.get('/logout', function(req, res, next) {
     req.logout();
-    res.redirect('/start');
+    if(req.session){
+        req.session.destroy(function(err){
+            if(err){
+                console.log('Destroy session error');
+                return next(err);
+            }
+            else{
+                console.log('Session successfully destroyed');
+            }
+        })
+    }
+    res.send('Good bye');
+    // Here must be redirect to /start page
 });
 
 module.exports = router;

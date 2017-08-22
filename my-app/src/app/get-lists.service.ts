@@ -31,7 +31,7 @@ export class GetListsService {
 
   createList(from, to, type): Observable<FormatList>{
     return this.http.post(this.listUrl+'/add', JSON.stringify({from: from, to: to, type: type}), {headers: this.headers})
-      .map(response => response.json().data as FormatList)
+      .map((response: Response) => response.json().data as FormatList)
       .catch(this.handleError);
   }
 
@@ -45,14 +45,14 @@ export class GetListsService {
   getVacationInd(): Observable<number> {
     const url = this.listUrl+'/vac_count';
     return this.http.get(url, {headers: this.headers})
-      .map( response => response.json() as number)
+      .map((response: Response) => response.json() as number)
       .catch(this.handleError);
   }
 
   getSickInd(): Observable<number> {
     const url = this.listUrl+'/sick_count';
     return this.http.get(url, {headers: this.headers})
-      .map( response => response.json() as number)
+      .map( (response: Response) => response.json() as number)
       .catch(this.handleError);
   }
 

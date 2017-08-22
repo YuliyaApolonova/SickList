@@ -19,6 +19,7 @@ const homeRoutes: Routes = [
           {
             path: 'list',
             component: SickListComponent
+            // loadChildren: 'sick-list/sick-list.component#SickListComponent'
           },
           {
             path: 'addList',

@@ -8,6 +8,8 @@ import { RegistrationComponent } from './registration/registration.component';
 import {StartPageRoutingModule} from './start-page-routing.module';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
+import {AuthService} from './login/auth.service';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -19,6 +21,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     StartPageComponent,
     LoginComponent,
     RegistrationComponent
+  ],
+  providers: [
+    AuthService
   ]
 })
 export class StartPageModule { }

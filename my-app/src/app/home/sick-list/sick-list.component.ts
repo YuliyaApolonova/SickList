@@ -43,7 +43,7 @@ export class SickListComponent implements OnInit {
 
   getLists(): void {
     this.getListsService.getLists().subscribe(lists => {
-      console.log('hellk'+lists);
+      console.log('hello'+lists);
       this.lists = lists});
   }
 

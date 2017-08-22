@@ -1,7 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder} from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormControl, AbstractControl} from '@angular/forms';
 
-import { PasswordValidation } from './password-validation';
+// import { PasswordValidation } from './password-validation';
+
+import {AuthService} from '../../auth.service';
+
+  function duplicatePassword(input: FormControl) {
+
+    if (!input.root || !input.root['controls']) {
+    return null;
+  }
+  // console.log('Password: '+ input.root['controls'].password.value);
+  let exactMatch = input.root['controls'].password.value === input.value;
+    console.log(exactMatch);
+    return exactMatch ? null : { mismatchedPassword: true };
+}
+
+// function duplicatePassword(input: FormControl) {
+//   if (this.registrationForm || this.registrationForm.controls) {
+//     return null;
+//   }
+//   const exactMatch = this.registrationForm.value.password === input.value;
+//   return exactMatch ? null : { mismatchedPassword: true };
+// }
+
 
 @Component({
   selector: 'app-registration',
@@ -52,46 +74,64 @@ export class RegistrationComponent implements OnInit {
     },
     'confPassword': {
       'required': 'Please, confirm the password',
-      'pattern': 'Only english characters or numbers'
+      'pattern': 'Only english characters or numbers',
+      'mismatchedPassword': 'Passwords must match'
     }
   };
 
-  onSubmit(): void {
+  onSubmit():void {
     this.submitted = true;
+    console.log(this.registrationForm.value);
+    this.authService.register(this.registrationForm.value)
+      .subscribe(data => {
+        // this.response = 'data';
+        // console.log('Hello' + data); //not working
+        if(data){
+          // this.router.navigate(['/home']);
+
+        }
+        else{
+          // this.response = 'Invalid login or password';
+        }
+    });
   }
+
   ngOnInit(): void {
     this.buildForm();
   }
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private authService: AuthService) { }
 
   buildForm(): void {
     this.registrationForm = this.fb.group({
 
-      "firstName": ["", [Validators.required,
+      "firstName": ["Vasya", [Validators.required,
         Validators.pattern('[A-Za-z]+')]],
 
-      "lastName": ["", [Validators.required,
+      "lastName": ["Vasya", [Validators.required,
         Validators.pattern('[A-Za-z]+')]],
 
-      "email": ["", [Validators.required,
+      "email": ["vasya@vasya.com", [Validators.required,
         Validators.pattern('^[0-9A-Za-z]{1,10}@[0-9a-zA-Z_]+?\.[a-zA-Z]{2,5}$')]],
 
       "telephone": ["", Validators.pattern('[0-9]+')],
 
-      "username": ["", [Validators.required,
+      "username": ["vasya", [Validators.required,
         Validators.pattern('[A-Za-z0-9]+'),
         Validators.maxLength(10),
         Validators.minLength(5)]],
 
-      "password": ["", [Validators.required,
-        Validators.pattern('[a-zA-Z0-9]+')]],
+      "password": ["vasya", [Validators.required,
+          Validators.pattern('[a-zA-Z0-9]+')]],
 
-      "confPassword": ["", [Validators.required,
-        Validators.pattern('[a-zA-Z0-9]+')]]
+      "confPassword": ["vasya", [Validators.required,
+          Validators.pattern('[a-zA-Z0-9]+'),
+          duplicatePassword
+      ]],
+
     },
-      {validator: PasswordValidation.MatchPassword
-      }
+      // {validator: PasswordValidation.MatchPassword('password', 'confPassword')
+      // }
     );
 
     this.registrationForm.valueChanges
@@ -119,5 +159,6 @@ export class RegistrationComponent implements OnInit {
       }
     }
   }
+
 
 }

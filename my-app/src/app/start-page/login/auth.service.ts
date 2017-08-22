@@ -6,7 +6,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import {Http, Headers} from '@angular/http';
+import {Http, Headers, Response} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
@@ -19,9 +19,9 @@ export class AuthService {
 
   private headers = new Headers({'Content-Type': 'application/json'});
 
-  login(username: string, password: string): Observable<void> {
+  login(username: string, password: string): Observable<boolean> {
     return this.http.post('http://localhost:1337/login', JSON.stringify({username: username, password: password}), {headers: this.headers})
-      .map(() => null )
+      .map((response: Response) => response.json() as boolean)
       .catch(this.handleError);
   }
 
