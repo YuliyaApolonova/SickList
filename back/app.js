@@ -32,8 +32,13 @@ const login = require('./routes/login');
 const register = require('./routes/register');
 const addList = require('./routes/addList');
 
-const User = require('./models/user');
+// const User = require('./models/user');
 
+const jwt = require('express-jwt');
+const auth = jwt({
+    secret: 'MY_SECRET',
+    userProperty: 'payload'
+})
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -56,7 +61,7 @@ app.use(expressSession({secret: 'mySecretKey',
     })
 }));
 
-app.use(cors()); // later
+app.use(cors());
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -94,8 +99,8 @@ app.use(function (req, res, next) {
 
                                              /*passport*/
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-
+// const LocalStrategy = require('passport-local').Strategy;
+require('./config/passport');
 // passport.use(new LocalStrategy({passReqToCallback : true},
 //     function(username, password, done) {
 //         User.findOne({ username: username }, function(err, user) {
@@ -109,14 +114,15 @@ const LocalStrategy = require('passport-local').Strategy;
 //             return done(null, user);
 //         });
 //     }
-// ));
-
-passport.use(new LocalStrategy({passReqToCallback : true}, User.authenticate));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+// // ));
+//
+// passport.use(new LocalStrategy({passReqToCallback : true}, User.authenticate));
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
+//
 
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 app.use(express.Router());
 
 mongoose.connect(DB, function(err) {
@@ -130,13 +136,16 @@ mongoose.connect(DB, function(err) {
 
 // error handler
 app.use(function (err, req, res, next) {
+    if(err.name === 'UnauthorisedError'){
+        res.status(401);
+        res.json({"message": err.name + ":" + err.message});
+    }
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
     // render the error page
     res.status(err.status || 500);
-    res.render('error');
 });
 
 // router.get('*', (req,res) => {

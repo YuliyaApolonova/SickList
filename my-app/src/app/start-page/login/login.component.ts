@@ -9,6 +9,7 @@ import {AuthService} from './auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent  {
         /****stub***/
   // users: User[] = [
@@ -27,17 +28,25 @@ export class LoginComponent  {
     const password = this.model.password;
     this.authService.login(username, password)
       .subscribe(data => {
-        // this.response = 'data';
-        // console.log('Hello' + data); //not working
-        if(data){
-          this.response = 'You are welcome';
+        if(data) {
           this.router.navigate(['/home']);
-
         }
         else{
-          this.response = 'Invalid login or password';
+          console.log('Authorisation error');
         }
       });
+      // .subscribe(data => {
+      //   // this.response = 'data';
+      //   // console.log('Hello' + data); //not working
+      //   if(data){
+      //     this.response = 'You are welcome';
+      //     this.router.navigate(['/home']);
+      //
+      //   }
+      //   else{
+      //     this.response = 'Invalid login or password';
+      //   }
+      // });
     // this.getListsService.getLog().subscribe(response => this.response = response);
 
           /****stub***/

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder, FormControl, AbstractControl} from '@angular/forms';
-
-// import { PasswordValidation } from './password-validation';
+import { FormGroup, Validators, FormBuilder, FormControl} from '@angular/forms';
+import {Router} from '@angular/router';
 
 import {AuthService} from '../../auth.service';
 
@@ -12,18 +11,9 @@ import {AuthService} from '../../auth.service';
   }
   // console.log('Password: '+ input.root['controls'].password.value);
   let exactMatch = input.root['controls'].password.value === input.value;
-    console.log(exactMatch);
+    // console.log(exactMatch);
     return exactMatch ? null : { mismatchedPassword: true };
 }
-
-// function duplicatePassword(input: FormControl) {
-//   if (this.registrationForm || this.registrationForm.controls) {
-//     return null;
-//   }
-//   const exactMatch = this.registrationForm.value.password === input.value;
-//   return exactMatch ? null : { mismatchedPassword: true };
-// }
-
 
 @Component({
   selector: 'app-registration',
@@ -34,6 +24,7 @@ export class RegistrationComponent implements OnInit {
 
   registrationForm: FormGroup;
   submitted  = false;
+  message = '';
   // firstName = new FormControl("", Validators.required);
 
   formErrors = {
@@ -87,11 +78,10 @@ export class RegistrationComponent implements OnInit {
         // this.response = 'data';
         // console.log('Hello' + data); //not working
         if(data){
-          // this.router.navigate(['/home']);
-
+          this.router.navigate(['/home']);
         }
         else{
-          // this.response = 'Invalid login or password';
+          this.message = 'Invalid login or password';
         }
     });
   }
@@ -100,7 +90,7 @@ export class RegistrationComponent implements OnInit {
     this.buildForm();
   }
 
-  constructor(private fb: FormBuilder, private authService: AuthService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
 
   buildForm(): void {
     this.registrationForm = this.fb.group({

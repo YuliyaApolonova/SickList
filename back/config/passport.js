@@ -1,15 +1,15 @@
 /**
  * Created by user on 22.08.17.
  */
-const passport = require('../passport');
-const LocalStrategy = require('../passport-local').Strategy;
-const mongoose = require('../mongoose');
-const user = require('../models/user');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const mongoose = require('mongoose');
+const user = mongoose.model('User');
 
 passport.use(new LocalStrategy(
 
     function(username, password, done) {
-        user.findOne({ email: username }, function (err, user) {
+        user.findOne({ username: username }, function (err, user) {
             if (err) { return done(err); }
             // Return if user not found in database
             if (!user) {

@@ -2,7 +2,8 @@
  * Created by user on 18.07.17.
  */
 
-import { Injectable } from '@angular/core';
+import
+{ Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
@@ -12,24 +13,35 @@ import 'rxjs/add/operator/delay';
 
 @Injectable()
 export class AuthService {
-
+  public token: string;
   constructor(private http: Http){}
   isLoggedIn = false;
-
   // store the URL so we can redirect after logging in
   redirectUrl: string;
 
-  login(): Observable<boolean> {
-    return Observable.of(true).delay(1000).do(val => this.isLoggedIn = true);
-  }
-
   logout(): void {
-    this.isLoggedIn = false;
+    localStorage.removeItem('mean-token');
+    console.log('logout');
+    // this.isLoggedIn = false;
   }
 
   register(data): Observable<boolean>{
     return this.http.post('http://localhost:1337/register', JSON.stringify(data))
-      .map((response:Response) => response.json() as boolean)
+      .map((response:Response) => {
+     let token = response.json().token;
+     let message = response.json().message;
+        console.log('token: ' + token);
+        if(token){
+          this.token = token;
+          localStorage.setItem('mean-token', JSON.stringify({ token: token}));
+          // localStorage.setItem('mean-token', JSON.stringify({username: data.username, token: token}));
+          // console.log('current user in localstorage' + localStorage.getItem('mean-token'));
+          return true;
+        }
+        else{
+          return false;
+        }
+      } )
       .catch(this.handleError);
   }
 
