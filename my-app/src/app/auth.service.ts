@@ -4,20 +4,60 @@
 
 import
 { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http, Headers, Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/delay';
+import {ICurrentUser} from './currentUser';
 
 @Injectable()
 export class AuthService {
+
   public token: string;
-  constructor(private http: Http){}
-  isLoggedIn = false;
-  // store the URL so we can redirect after logging in
-  redirectUrl: string;
+
+  constructor(private http: Http){
+    // let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    // this.token = currentUser && currentUser.token;
+    this.token = JSON.parse(localStorage.getItem('currentUser')) && JSON.parse(localStorage.getItem('mean-token')).token;
+  }
+
+  // public  isLoggedIn = false;
+
+  isLoggedIn(): boolean{
+    let token = this.token;
+    let payload;
+    if(token){
+      payload  = token.split('.')[1];
+      payload = atob(payload);
+      payload = JSON.parse(payload);
+      return payload.exp > Date.now() / 1000;
+    }
+    else{
+      return false;
+    }
+  }
+
+  currentUser(): ICurrentUser {
+    if(this.isLoggedIn()){
+      let token = this.token;
+      let payload;
+      if(token) {
+        payload = token.split('.')[1];
+        payload = atob(payload);
+        payload = JSON.parse(payload);
+        return {
+          email: payload.email,
+          id: payload._id,
+          username: payload.username
+        }
+      }
+
+    }
+  }
+
+  private headers = new Headers({'Content-Type': 'application/json'});
 
   logout(): void {
     localStorage.removeItem('mean-token');
@@ -29,7 +69,7 @@ export class AuthService {
     return this.http.post('http://localhost:1337/register', JSON.stringify(data))
       .map((response:Response) => {
      let token = response.json().token;
-     let message = response.json().message;
+     // let message = response.json().message;
         console.log('token: ' + token);
         if(token){
           this.token = token;
@@ -42,6 +82,26 @@ export class AuthService {
           return false;
         }
       } )
+      .catch(this.handleError);
+  }
+
+  login(username: string, password: string): Observable<boolean> {
+    return this.http.post('http://localhost:1337/login', JSON.stringify({username: username, password: password}), {headers: this.headers})
+      .map((response: Response) => {
+        let token = response.json() && response.json().token;
+        console.log('token' + token);
+        if(token){
+          this.token = token;
+          // localStorage.setItem('currentUser', JSON.stringify({username: username, token: token}));
+          localStorage.setItem('mean-token', JSON.stringify({ token: token}));
+          console.log('current user in localstorage' + localStorage.getItem('mean-token'));
+
+          return true;
+        }
+        else{
+          return false;
+        }
+      })
       .catch(this.handleError);
   }
 

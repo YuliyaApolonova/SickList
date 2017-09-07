@@ -15,6 +15,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {CurrentDataService} from "./current-data.service";
 import {GetListsService} from "./get-lists.service";
 import {AuthService} from './auth.service';
+import {AuthGuard} from "./auth-guard.service";
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import {AuthService} from './auth.service';
 
 
   ],
-  providers: [CurrentDataService, GetListsService, AuthService],
+  providers: [CurrentDataService, GetListsService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

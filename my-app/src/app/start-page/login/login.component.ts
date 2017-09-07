@@ -2,7 +2,7 @@ import { Component} from '@angular/core';
 import { Router } from '@angular/router';
 import {User} from './user';
 import {GetListsService} from '../../get-lists.service';
-import {AuthService} from './auth.service';
+import {AuthService} from '../../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +30,11 @@ export class LoginComponent  {
       .subscribe(data => {
         if(data) {
           this.router.navigate(['/home']);
+          console.log('is logged in: ' + this.authService.isLoggedIn());
+          let currentUsr = this.authService.currentUser();
+          console.log('current user' + currentUsr.username);
+          console.log('user id: ' + currentUsr.id);
+          console.log('user email: ' + currentUsr.email);
         }
         else{
           console.log('Authorisation error');
