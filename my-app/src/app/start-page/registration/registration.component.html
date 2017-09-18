@@ -1,6 +1,6 @@
 
 <div>
-  <form class='col-lg-offset-4 col-lg-4 col-md-offset-4 col-md-4' [formGroup]="registrationForm" (ngSubmit)="onSubmit()" novalidate>
+  <form class='col-lg-offset-4 col-lg-4 col-md-offset-4 col-md-4' method='post' action='http://localhost:1337/send-mail' enctype="text/plain" [formGroup]="registrationForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="form-group">
       <label  class="center-block" for="firstName"> First name: </label>
       <input  class="form-control" type="text" formControlName="firstName" id="firstName" required>

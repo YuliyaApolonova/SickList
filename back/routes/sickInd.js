@@ -6,20 +6,44 @@ const router = express.Router();
 require('../models/User');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
+const jwt = require('jsonwebtoken');
 
-router.get('/sick_count', function(req, res){
-    if(!req.payload._id){
-        res.status(401).json({
-            "message": "UnauthorisedError: private profile"
-        });
-    }
-    else{
-        User
-            .findById(req.payload._id)
-            .exec(function(err, user){
-                res.status(200).json(user);
-            });
-    }
+const leaves = 18;
+
+router.get('/sick_count', (req, res) => {
+    console.log(req.headers['authorization']);
+    let token = req.headers['authorization'].split(' ')[1];
+    jwt.verify(token, 'MY_SECRET', function(err, decoded){
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log(decoded._id);
+            // let id = decoded._id;
+            // User.findById(id)
+            //     .exec(function(err, user){
+            //         res.status(200).json()
+            //     });
+        }
+    })
+    res.send(JSON.stringify(leaves));
+    console.log('response from /sick_count');
+
+
+     // console.log('req.payload ' + req.payload); //undefined
+    // if(!req.payload._id){
+//         console.log('unauthorised');
+//         res.status(401).json({
+//             "message": "UnauthorisedError: private profile"
+//         });
+//     }
+//     else{
+//         User
+//             .findById(req.payload._id)
+//             .exec(function(err, user){
+//                 res.status(200).json(user);
+//             });
+//     }
 })
 
             /*working variant*/

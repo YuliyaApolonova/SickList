@@ -19,7 +19,7 @@ import {FormatList} from './home/sick-list/dbFormatList';
 export class GetListsService {
 
   private listUrl = 'http://localhost:1337';
-  private headers = new Headers({'Content-Type': 'application/json'});
+  private headers = new Headers({'Content-Type': 'application/json', 'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('mean-token')).token});
 
   constructor(private http: Http) { }
 

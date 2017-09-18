@@ -7,6 +7,11 @@
 const express = require('express');
 const router = express.Router();
 
+// const auth = jwt({
+//     secret: 'MY_SECRET',
+//     userProperty: 'payload'
+// })
+
 const getHandler = require('../handlers/getHandler');
 
 // const lists = [

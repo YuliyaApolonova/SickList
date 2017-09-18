@@ -31,14 +31,11 @@ const sickInd = require('./routes/sickInd');
 const login = require('./routes/login');
 const register = require('./routes/register');
 const addList = require('./routes/addList');
+const sendMail = require('./routes/send-mail');
 
 // const User = require('./models/user');
 
 const jwt = require('express-jwt');
-const auth = jwt({
-    secret: 'MY_SECRET',
-    userProperty: 'payload'
-})
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -90,6 +87,7 @@ app.use(vacationInd);
 app.use(sickInd);
 app.use(login);
 app.use(register);
+app.use(sendMail);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     let err = new Error('Not Found');

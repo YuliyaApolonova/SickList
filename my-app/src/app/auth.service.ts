@@ -20,7 +20,7 @@ export class AuthService {
   constructor(private http: Http){
     // let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     // this.token = currentUser && currentUser.token;
-    this.token = JSON.parse(localStorage.getItem('currentUser')) && JSON.parse(localStorage.getItem('mean-token')).token;
+    this.token = JSON.parse(localStorage.getItem('mean-token')) && JSON.parse(localStorage.getItem('mean-token')).token;
   }
 
   // public  isLoggedIn = false;
@@ -60,8 +60,8 @@ export class AuthService {
   private headers = new Headers({'Content-Type': 'application/json'});
 
   logout(): void {
-    localStorage.removeItem('mean-token');
     console.log('logout');
+    localStorage.removeItem('mean-token');
     // this.isLoggedIn = false;
   }
 
