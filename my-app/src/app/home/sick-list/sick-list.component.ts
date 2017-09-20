@@ -19,7 +19,7 @@ export class SickListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLists();
-    console.log(this.lists); //why this.lists = undefined?
+    console.log(this.lists);
   }
 
   checkDeletePerm(date): boolean { // for delete button on sick-list

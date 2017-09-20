@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const jwt = require('jsonwebtoken');
 
-const leaves = 18;
+// const leaves = 18;
 
 router.get('/sick_count', (req, res) => {
     console.log(req.headers['authorization']);
@@ -16,17 +16,51 @@ router.get('/sick_count', (req, res) => {
     jwt.verify(token, 'MY_SECRET', function(err, decoded){
         if(err){
             console.log(err);
+            res.status(401).json({
+                "data": "",
+                "message": "Invalid token",
+                "type": false
+
+            })
         }
         else{
-            console.log(decoded._id);
-            // let id = decoded._id;
-            // User.findById(id)
-            //     .exec(function(err, user){
-            //         res.status(200).json()
-            //     });
+            if(!decoded._id){
+                console.log('Unauthorised');
+                res.status(401).json({
+                    "data": "",
+                    "message": "Unauthorised",
+                    "type": false
+                })
+            }
+            else{
+                console.log(decoded._id);
+                console.log('Authorised successfully');
+                const id = decoded._id;
+                User.findById(id)
+                    .exec((err, user) => {
+                        if(err){
+                            console.log(err);
+                        }
+                        else{
+                            var counter = 0;
+                            let list = user.lists;
+                            for(let i = 0; i < list.length; i++){
+                                if(list[i].type === 'sick-leave'){
+                                   counter++;
+                                }
+                            }
+                            console.log('counter: ' + counter);
+                            res.status(200).json({
+                            "data": counter,
+                            "message": "Authorised",
+                            "type": true
+                        })
+                    }
+                })
+            }
         }
     })
-    res.send(JSON.stringify(leaves));
+    // res.send(JSON.stringify(leaves));
     console.log('response from /sick_count');
 
 

@@ -11,13 +11,14 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/delay';
 import {ICurrentUser} from './currentUser';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class AuthService {
 
   public token: string;
 
-  constructor(private http: Http){
+  constructor(private http: Http, private router: Router){
     // let currentUser = JSON.parse(localStorage.getItem('currentUser'));
     // this.token = currentUser && currentUser.token;
     this.token = JSON.parse(localStorage.getItem('mean-token')) && JSON.parse(localStorage.getItem('mean-token')).token;
@@ -62,7 +63,7 @@ export class AuthService {
   logout(): void {
     console.log('logout');
     localStorage.removeItem('mean-token');
-    // this.isLoggedIn = false;
+    this.router.navigate(['/start']);
   }
 
   register(data): Observable<boolean>{

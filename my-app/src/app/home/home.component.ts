@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {GetListsService } from '../get-lists.service';
 import {AuthService} from '../auth.service';
 
+import {IResponse} from '../response';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,18 +17,20 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.vacations = 14;
-    // this.sickLists = 5;
+
     this.getVacationInd();
     this.getSickInd();
   }
 
   getVacationInd(): void {
-    this.getListsService.getVacationInd().subscribe(vacations => this.vacations = vacations);
+    this.getListsService.getVacationInd().subscribe((response: IResponse) => this.vacations = response.data);
   }
 
   getSickInd(): void {
-    this.getListsService.getSickInd().subscribe( sickLists => this.sickLists = sickLists);
+    this.getListsService.getSickInd().subscribe((response: IResponse) => {
+      console.log('Response is here ' + response);
+      this.sickLists = response.data;
+    });
   }
 
   logout(): void {

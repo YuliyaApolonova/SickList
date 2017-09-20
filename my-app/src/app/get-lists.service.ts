@@ -14,6 +14,7 @@ import 'rxjs/add/observable/throw';
 import {Observable} from 'rxjs/Observable';
 
 import {FormatList} from './home/sick-list/dbFormatList';
+import {IResponse} from './response';
 
 @Injectable()
 export class GetListsService {
@@ -30,7 +31,7 @@ export class GetListsService {
   }
 
   createList(from, to, type): Observable<FormatList>{
-    return this.http.post(this.listUrl+'/add', JSON.stringify({from: from, to: to, type: type}), {headers: this.headers})
+    return this.http.post(this.listUrl+`/add`, JSON.stringify({from: from, to: to, type: type}), {headers: this.headers})
       .map((response: Response) => response.json().data as FormatList)
       .catch(this.handleError);
   }
@@ -42,17 +43,24 @@ export class GetListsService {
       .catch(this.handleError);
   }
 
-  getVacationInd(): Observable<number> {
+  // getVacationInd(): Observable<number> {
+  //   const url = this.listUrl+'/vac_count';
+  //   return this.http.get(url, {headers: this.headers})
+  //     .map((response: Response) => response.json() as number)
+  //     .catch(this.handleError);
+  // }
+
+  getVacationInd(): Observable<IResponse> {
     const url = this.listUrl+'/vac_count';
     return this.http.get(url, {headers: this.headers})
-      .map((response: Response) => response.json() as number)
+      .map((response: Response) => response.json() as IResponse)
       .catch(this.handleError);
   }
 
-  getSickInd(): Observable<number> {
+  getSickInd(): Observable<IResponse> {
     const url = this.listUrl+'/sick_count';
     return this.http.get(url, {headers: this.headers})
-      .map( (response: Response) => response.json() as number)
+      .map( (response: Response) =>response.json() as IResponse)
       .catch(this.handleError);
   }
 

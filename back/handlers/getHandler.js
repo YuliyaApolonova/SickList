@@ -3,25 +3,30 @@
  */
 
 const mongoose = require('mongoose');
-const db = mongoose.connection;
 
-db.on('error', function (err) {
-    // Обрабатываем ошибку
-});
-db.once('open', function callback() {
-    // Соединение прошло успешно
-});
+require('../models/User');
+const mongoose = require('mongoose');
+const User = mongoose.model('User');
 
-var Schema = new mongoose.Schema({
-    _id: String,
-    username: String,
-    password: String,
-    lists: [
-        {dateFrom: String,
-        dateTo: String
-        }
-    ]
-})
+// const db = mongoose.connection;
+//
+// db.on('error', function (err) {
+//     // Обрабатываем ошибку
+// });
+// db.once('open', function callback() {
+//     // Соединение прошло успешно
+// });
+//
+// var Schema = new mongoose.Schema({
+//     _id: String,
+//     username: String,
+//     password: String,
+//     lists: [
+//         {dateFrom: String,
+//         dateTo: String
+//         }
+//     ]
+// })
 
 const id = '5982eae30b5618e2b440c970';
 
