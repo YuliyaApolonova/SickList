@@ -10,9 +10,6 @@ const express = require('express');
 const router = express.Router();
 const addHandler = require('../handlers/addHandler');
 
-router.post('/add', (req, res) => {
-    console.log('response from /add');
-    // addHandler.addList(req, res);
-});
+router.post('/add', addHandler.addList);
 
 module.exports = router;

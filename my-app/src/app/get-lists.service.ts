@@ -25,19 +25,28 @@ export class GetListsService {
   constructor(private http: Http) { }
 
   getLists(): Observable<FormatList[]> {
-    return this.http.get(this.listUrl+ '/list')
-      .map((response: Response) => response.json() as FormatList[])
+    return this.http.get(this.listUrl+ '/list', {headers: this.headers})
+      .map((response: Response) => response.json().data as FormatList[])
       .catch(this.handleError);
   }
 
   createList(from, to, type): Observable<FormatList>{
-    return this.http.post(this.listUrl+`/add`, JSON.stringify({from: from, to: to, type: type}), {headers: this.headers})
+    return this.http.post(this.listUrl+'/add', JSON.stringify({dateFrom: from, dateTo: to, type: type}), {headers: this.headers})
       .map((response: Response) => response.json().data as FormatList)
       .catch(this.handleError);
   }
 
-  removeList(id: number): Observable<void> {
-    const url = this.listUrl+`/remove`+`/${id}`;
+  // createList(from, to, type): Observable<void>{
+  //   return this.http.post(this.listUrl+`/add`, JSON.stringify({from: from, to: to, type: type}), {headers: this.headers})
+  //     .map((response: Response) => {
+  //     console.log(response.json().message);
+  //     })
+  //     .catch(this.handleError);
+  // }
+
+  removeList(): Observable<void> {
+    // const url = this.listUrl+`/remove`+`/${id}`;
+    const url = this.listUrl+'/remove';
     return this.http.delete(url, {headers: this.headers})
       .map(() => null)
       .catch(this.handleError);
@@ -70,7 +79,7 @@ export class GetListsService {
   //     .catch(this.handleError);
   // }
 
-  private handleError(error: any): Observable<any> {
+  private handleError(error: Response | any): Observable<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Observable.throw(error.message || error);
   }

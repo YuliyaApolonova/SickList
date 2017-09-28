@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 import {SickList} from '../list';
 import {IDate} from '../../date';
@@ -21,15 +22,17 @@ export class AddListComponent implements OnInit {
   //   {'dateFrom': '2017-03-12', 'dateTo': '2017-04-05', 'type': 'vacation'}
   // ];
 
-  lists: FormatList[];
+  // lists: FormatList[];
 
-  constructor(private currentDataService: CurrentDataService, private getListsService: GetListsService) {  }
+  constructor(private currentDataService: CurrentDataService, private getListsService: GetListsService, private  router: Router) {  }
 
   model = new SickList(null, null, '' ); // в input приходит object
 
-  types = ['vacation', 'sick-list'];
+  types = ['vacation', 'sick-leave'];
 
   submitted = false;
+
+  errorMessage = '';
 
   onSubmit(): void {
     this.submitted = true;
@@ -54,10 +57,14 @@ export class AddListComponent implements OnInit {
   }
 
   addList(from, to, type): void {
+    console.log('addList function works');
     this.getListsService.createList(from, to, type)
       .subscribe(list => {
-        this.lists.push(list);
-      });
+        // this.lists.push(list);
+        console.log('new leave' + list);
+      },
+      error => this.errorMessage = <any>error);
+    this.router.navigate(['/home/list']);
   }
 
 }

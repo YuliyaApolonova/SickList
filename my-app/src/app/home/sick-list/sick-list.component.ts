@@ -48,11 +48,11 @@ export class SickListComponent implements OnInit {
   }
 
   deleteVacation(list: FormatList): boolean {
-    const res = confirm('Are you sure to delete this vacation?');
+    const res = confirm('Are you sure to delete this one?');
     if (!res) {
       return false;
     }
-    this.getListsService.removeList(list.id)
+    this.getListsService.removeList()
       .subscribe(() => this.lists = this.lists.filter(l => l!== list));
     return true;
   }
