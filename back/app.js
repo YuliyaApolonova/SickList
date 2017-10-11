@@ -32,6 +32,7 @@ const login = require('./routes/login');
 const register = require('./routes/register');
 const addList = require('./routes/addList');
 const sendMail = require('./routes/send-mail');
+const removeList = require('./routes/removeList');
 
 // const User = require('./models/user');
 
@@ -44,7 +45,7 @@ const jwt = require('express-jwt');
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 // app.use('/', express.static(__dirname + '/../dist'));
-
+// app.set('home', '')
 app.set('views', path.join(__dirname, '../my-app/src'));
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
@@ -89,6 +90,7 @@ app.use(login);
 app.use(register);
 app.use(sendMail);
 app.use(addList);
+app.use(removeList);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     let err = new Error('Not Found');

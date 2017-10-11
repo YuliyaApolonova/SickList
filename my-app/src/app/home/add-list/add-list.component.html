@@ -18,7 +18,7 @@
   </div>
 
   <div class="form-group">
-    <label for="dateTo">From: </label>
+    <label for="dateTo">To: </label>
     <div class="input-group">
       <input class="form-control" placeholder="yyyy-mm-dd"
              id="dateTo"
@@ -46,5 +46,5 @@
   </div>
   <button type="submit" class="btn btn-success" [disabled]="!addListForm.form.valid">Add</button>
 </form>
-  {{errorMessage}}
 </div>
+{{errorMessage}}

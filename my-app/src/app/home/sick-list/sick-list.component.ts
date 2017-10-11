@@ -14,7 +14,7 @@ import {GetListsService} from '../../get-lists.service';
 export class SickListComponent implements OnInit {
 
   lists: FormatList[];
-
+  errorMessage = '';
   constructor(private currentDataService: CurrentDataService, private getListsService: GetListsService) { }
 
   ngOnInit(): void {
@@ -29,13 +29,14 @@ export class SickListComponent implements OnInit {
     const month = date_arr[1];
     const day = date_arr[2];
 
-    if (parseInt(year, 10) > +this.currentDataService.getCurrentDate().year) { // date  - это строка!!! Put in DB as a string
+    let currentDate = this.currentDataService.getCurrentDate();
+    if (parseInt(year, 10) > +currentDate.year) { // date  - это строка!!! Put in DB as a string
       return true;
     }
-    if (parseInt(month, 10) > +this.currentDataService.getCurrentDate().month) {
+    if (parseInt(month, 10) > +currentDate.month) {
       return true;
     }
-    if (parseInt(day, 10) > +this.currentDataService.getCurrentDate().day) {
+    if (parseInt(day, 10) > +currentDate.day) {
       return true;
     }
     return false;
@@ -44,15 +45,26 @@ export class SickListComponent implements OnInit {
   getLists(): void {
     this.getListsService.getLists().subscribe(lists => {
       console.log('hello'+lists);
-      this.lists = lists});
+      this.lists = lists},
+      error => this.errorMessage = <any>error);
   }
 
-  deleteVacation(list: FormatList): boolean {
+  // deleteVacation(list: FormatList): boolean {
+  //   const res = confirm('Are you sure to delete this one?');
+  //   if (!res) {
+  //     return false;
+  //   }
+  //   this.getListsService.removeList()
+  //     .subscribe(() => this.lists = this.lists.filter(l => l!== list));
+  //   return true;
+  // }
+
+  deleteVacation(list, index): boolean {
     const res = confirm('Are you sure to delete this one?');
     if (!res) {
       return false;
     }
-    this.getListsService.removeList()
+    this.getListsService.removeList(index)
       .subscribe(() => this.lists = this.lists.filter(l => l!== list));
     return true;
   }

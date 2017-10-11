@@ -25,10 +25,6 @@ let UserSchema = new mongoose.Schema({
         required: true
     },
     lists: Array,
-    // password: {
-    //     type: String,
-    //     required: true
-    // },
     hash: String,
     salt: String
 });
@@ -55,9 +51,16 @@ UserSchema.methods.generateJwt = function() {
     }, "MY_SECRET");
 };
 
-// UserSchema.methods.validPassword = function(pwd) {
-//     return (this.password === pwd);
-// }
+// UserSchema.methods.generateJwt = function() { //for debugging
+//
+//     return jwt.sign({
+//         _id: this._id,
+//         email: this.email,
+//         username: this.username
+//     }, "MY_SECRET", {expiresIn: '1m'});
+// };
+
+
 
 // UserSchema.plugin(passportLocalMongoose); // takes care of salting and hashing the password
 //

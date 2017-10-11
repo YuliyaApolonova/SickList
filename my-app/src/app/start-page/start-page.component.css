@@ -4,6 +4,9 @@ a:visited {
 a:hover {
   color: #62c2e4; }
 
+body {
+  background: url("/app/images/cockle_paper.jpg"); }
+
 a {
   font-size: 2vh;
   text-decoration: none;

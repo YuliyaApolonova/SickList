@@ -18,12 +18,14 @@ const homeRoutes: Routes = [
     children: [
           {
             path: 'list',
-            component: SickListComponent
+            component: SickListComponent,
+            canActivate: [AuthGuard]
             // loadChildren: 'sick-list/sick-list.component#SickListComponent'
           },
           {
             path: 'addList',
-            component: AddListComponent
+            component: AddListComponent,
+            canActivate: [AuthGuard]
           }
         ]
       }

@@ -1,7 +1,8 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "my-app"
+    "name": "my-app",
+    "ejected": true
   },
   "apps": [
     {
@@ -53,7 +54,7 @@
   },
   "defaults": {
     "styleExt": "css",
-    "component": {},
-    "port": 1337
+    "component": {
+    }
   }
 }

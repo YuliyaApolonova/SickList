@@ -2,11 +2,13 @@
 <h2> The whole list:</h2>
 <div>
 <ul>
-  <li *ngFor="let list of lists" >
+  <li *ngFor="let list of lists; let i = index" >
+    <span >{{i+1}}</span>
     <span >{{list.dateFrom}}</span>
     <span>{{list.dateTo}}</span>
     <span>{{list.type}}</span>
-    <button (click)='deleteVacation(list)' *ngIf="checkDeletePerm(list.dateFrom)">X</button>
+    <button (click)='deleteVacation(list, i)' *ngIf="checkDeletePerm(list.dateFrom)">X</button>
   </li>
 </ul>
 </div>
+{{errorMessage}}

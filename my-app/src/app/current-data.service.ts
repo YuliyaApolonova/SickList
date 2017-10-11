@@ -7,14 +7,18 @@ import { Injectable } from '@angular/core';
 import {IDate} from './date';
 
 @Injectable()
+
 export class CurrentDataService {
 
   getCurrentDate(): IDate {
 
-    const today = new Date();
-    const day = today.getDay();
-    const month = today.getMonth();
-    const year = today.getFullYear();
+    let today = new Date();
+    let day = today.getUTCDate();
+    let month = today.getMonth()+1;
+    let year = today.getFullYear();
+
+    today = null;
+
     return {
       year: year,
       month: month,

@@ -7,11 +7,13 @@ import { RouterModule, Routes } from '@angular/router';
 import {LoginComponent} from './login/login.component';
 import {RegistrationComponent} from './registration/registration.component';
 import {StartPageComponent} from './start-page.component';
+// import {StartActivateGuard} from './start-activate-guard';
 
 const startRoutes: Routes = [
   {
     path: 'start',
     component: StartPageComponent,
+    // canActivate: [StartActivateGuard],
     children: [
       {
         path: '',

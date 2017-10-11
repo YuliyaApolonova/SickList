@@ -9,6 +9,7 @@ import {StartPageRoutingModule} from './start-page-routing.module';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import {AuthService} from './login/auth.service';
+import {StartActivateGuard} from "./start-activate-guard";
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import {AuthService} from './login/auth.service';
     RegistrationComponent
   ],
   providers: [
-    AuthService
+    AuthService,
+    StartActivateGuard
   ]
 })
 export class StartPageModule { }

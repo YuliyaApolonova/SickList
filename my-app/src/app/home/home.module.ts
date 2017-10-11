@@ -14,6 +14,7 @@ import {FormsModule} from '@angular/forms';
 import { AdminComponent } from './admin/admin.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {ErrorHandlerService} from "./errorHandler-service";
 
 
 @NgModule({
@@ -28,6 +29,9 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     AddListComponent,
     SickListComponent,
     AdminComponent
+  ],
+  providers: [
+    ErrorHandlerService
   ]
 })
 export class HomeModule { }

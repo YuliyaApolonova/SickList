@@ -16,13 +16,20 @@ export class AuthGuard implements CanActivate {
 
   // checkLogin(url: string): boolean {
     checkLogin(): boolean {
-    if (this.authService.isLoggedIn()) { return true; }
-
+    if (this.authService.isLoggedIn()) {
+      console.log('Auth guard: isLoggedIn = true' );
+      return true;
+    }
+    else{
+      localStorage.removeItem('mean-token');
+      alert('Your session was expired. Please, sign in again.');
+      this.router.navigate(['/start']);
+      console.log('Auth guard: isLoggedIn = false' );
+      return false;
+    }
     // Store the attempted URL for redirecting
     // this.authService.redirectUrl = url;
 
     // Navigate to the login page with extras
-    this.router.navigate(['/start']);
-    return false;
   }
 }

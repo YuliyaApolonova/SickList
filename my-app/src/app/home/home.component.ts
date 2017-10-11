@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit{
 
   getSickInd(): void {
     this.getListsService.getSickInd().subscribe((response: IResponse) => {
-      console.log('Response is here ' + response);
+      // console.log('Response is here ' + response);
       this.sickLeaves = response.data;
     });
   }
