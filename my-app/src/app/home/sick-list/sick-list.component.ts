@@ -14,7 +14,11 @@ import {GetListsService} from '../../get-lists.service';
 export class SickListComponent implements OnInit {
 
   lists: FormatList[];
+  activeList: FormatList;
   errorMessage = '';
+  editModel = new FormatList('', '', '');
+  types = ['vacation', 'sick-leave'];
+
   constructor(private currentDataService: CurrentDataService, private getListsService: GetListsService) { }
 
   ngOnInit(): void {
@@ -68,4 +72,16 @@ export class SickListComponent implements OnInit {
       .subscribe(() => this.lists = this.lists.filter(l => l!== list));
     return true;
   }
+
+  editVacation(list): void {
+    this.activeList = list;
+    // this.getListsService.editList(index)
+  }
+
+  updateVacation(list, index): void {
+    this.activeList = null;
+    this.getListsService.updateList(list, index)
+      .subscribe();
+  }
+
 }

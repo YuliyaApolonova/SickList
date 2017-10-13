@@ -49,7 +49,7 @@ export class AddListComponent implements OnInit{
     // console.log(this.lists);
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
 
     this.setMinDate();
   }

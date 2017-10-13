@@ -27,24 +27,34 @@ export class GetListsService {
   constructor(private http: Http, private router: Router) { }
 
   getLists(): Observable<FormatList[]> {
-    return this.http.get(this.listUrl+ '/list', {headers: this.headers})
+    return this.http.get(this.listUrl + '/list', {headers: this.headers})
       .map((response: Response) => response.json().data as FormatList[])
       .catch(this.handleError);
   }
 
   createList(from, to, type): Observable<FormatList>{
-    return this.http.post(this.listUrl+'/add', JSON.stringify({dateFrom: from, dateTo: to, type: type}), {headers: this.headers})
+    return this.http.post(this.listUrl + '/add', JSON.stringify({dateFrom: from, dateTo: to, type: type}), {headers: this.headers})
       .map((response: Response) => response.json().data as FormatList)
       .catch(this.handleError);
   }
 
   removeList(index): Observable<void> {
     // const url = this.listUrl+`/remove`+`/${index}`;
-    const url = this.listUrl+'/remove';
+    const url = this.listUrl + '/remove';
     let myParams = new URLSearchParams();
     myParams.set('index', index);
     console.log(myParams);
     return this.http.delete(url, {headers: this.headers, params: myParams})
+      .map(() => null)
+      .catch(this.handleError);
+  }
+
+  updateList(list, index): Observable<void> {
+    const url = this.listUrl + '/update';
+    let myParams = new URLSearchParams();
+    myParams.set('index', index);
+    console.log(myParams);
+    return this.http.put(url, JSON.stringify(list), {headers: this.headers, params: myParams})
       .map(() => null)
       .catch(this.handleError);
   }

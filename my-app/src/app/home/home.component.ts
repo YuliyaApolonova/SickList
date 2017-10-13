@@ -1,6 +1,7 @@
 import { Component, OnInit, NgZone} from '@angular/core';
 import {GetListsService } from '../get-lists.service';
 import {AuthService} from '../auth.service';
+import {FormatList} from './sick-list/dbFormatList';
 
 import {IResponse} from '../response';
 
@@ -12,6 +13,7 @@ import {IResponse} from '../response';
 export class HomeComponent implements OnInit{
   vacations: number;
   sickLeaves: number;
+
 
   constructor(private getListsService: GetListsService, private authService: AuthService) {
   }

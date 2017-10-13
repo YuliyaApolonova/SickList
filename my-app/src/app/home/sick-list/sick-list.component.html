@@ -1,14 +1,48 @@
 
 <h2> The whole list:</h2>
 <div>
-<ul>
-  <li *ngFor="let list of lists; let i = index" >
-    <span >{{i+1}}</span>
-    <span >{{list.dateFrom}}</span>
-    <span>{{list.dateTo}}</span>
-    <span>{{list.type}}</span>
-    <button (click)='deleteVacation(list, i)' *ngIf="checkDeletePerm(list.dateFrom)">X</button>
-  </li>
-</ul>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>№</th>
+      <th>Date from</th>
+      <th>Date to</th>
+      <th>Type</th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let list of lists; let i = index">
+    <tr *ngIf="list != activeList">
+      <td>{{i+1}}</td>
+      <td>{{list.dateFrom}}</td>
+      <td>{{list.dateTo}}</td>
+      <td>{{list.type}}</td>
+      <td> <button (click)='deleteVacation(list, i)' *ngIf="checkDeletePerm(list.dateFrom)">X</button></td>
+      <td> <button class="btn btn-primary" (click)='editVacation(list)' *ngIf="checkDeletePerm(list.dateFrom)">Edit</button></td>
+    </tr>
+    <tr *ngIf="list == activeList">
+      <td>{{i+1}}</td>
+      <td><input class='form-control' [(ngModel)]="list.dateFrom"  type='text' value="{{list.dateFrom}}"></td>
+      <td><input class='form-control' [(ngModel)]="list.dateTo" type='text'></td>
+      <td>
+        <select class='custom-select' name='type' [(ngModel)]="list.type">
+          <option *ngFor="let type of types" [value]="type">{{type}}</option>
+        </select>
+      </td>
+      <td>
+        <a class='btn btn-primary' (click)='updateVacation(list, i)'> Save </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+<!--<ul>-->
+  <!--<li *ngFor="let list of lists; let i = index" >-->
+    <!--<span class="index-list">{{i+1}}</span>-->
+    <!--<span>{{list.dateFrom}}</span>-->
+    <!--<span>{{list.dateTo}}</span>-->
+    <!--<span>{{list.type}}</span>-->
+    <!--<button (click)='deleteVacation(list, i)' *ngIf="checkDeletePerm(list.dateFrom)">X</button>-->
+  <!--</li>-->
+<!--</ul>-->
 </div>
 {{errorMessage}}
