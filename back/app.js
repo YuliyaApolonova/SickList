@@ -34,6 +34,7 @@ const addList = require('./routes/addList');
 const sendMail = require('./routes/send-mail');
 const removeList = require('./routes/removeList');
 const updateList = require('./routes/updateList');
+const forgotPassword = require('./routes/forgotPassword');
 
 // const User = require('./models/user');
 
@@ -93,6 +94,7 @@ app.use(sendMail);
 app.use(addList);
 app.use(removeList);
 app.use(updateList);
+app.use(forgotPassword);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     let err = new Error('Not Found');

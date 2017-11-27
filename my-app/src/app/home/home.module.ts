@@ -15,14 +15,17 @@ import { AdminComponent } from './admin/admin.component';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ErrorHandlerService} from "./errorHandler-service";
-
+import {MatPaginatorModule} from "@angular/material";
+import {MatSortModule} from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
     HomeRoutingModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   declarations: [
     HomeComponent,

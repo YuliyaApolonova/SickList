@@ -2,15 +2,32 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RegistrationComponent } from './registration.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import {RouterTestingModule} from '@angular/router/testing';
+
+import {AuthService} from '../../auth.service';
+
+import {Observable} from 'rxjs';
 
 describe('RegistrationComponent', () => {
   let component: RegistrationComponent;
   let fixture: ComponentFixture<RegistrationComponent>;
 
+  class authServiceStub {
+    register(): Observable<boolean> {
+      return Observable.of(true);
+    }
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ RegistrationComponent ],
-      imports: [ ReactiveFormsModule ]
+      imports: [
+        ReactiveFormsModule,
+        RouterTestingModule
+      ],
+      providers: [
+        {provide: AuthService, useClass: authServiceStub}
+      ]
     })
     .compileComponents();
   }));
@@ -34,7 +51,7 @@ describe('RegistrationComponent', () => {
     expect(email.valid).toBeFalsy();
   });
 
-  it('email field initially should be invalid', () => {
+  it('username field initially should be invalid', () => {
     let username = component.registrationForm.controls['username'];
     expect(username.valid).toBeFalsy();
   });

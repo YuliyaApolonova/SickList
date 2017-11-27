@@ -71,7 +71,7 @@ describe('StartPageComponent', () => {
       expect(links[1].linkParams).toBe('/start/registration', '1st link should go to Registration Page');
     });
 
-    it('can click home link in template', () => {
+    it('can click registration link in template', () => {
       const homeLinkDe = linkDes[1];
       const homeLink = links[1];
 
@@ -81,6 +81,18 @@ describe('StartPageComponent', () => {
       fixture.detectChanges();
 
       expect(homeLink.navigatedTo).toBe('/start/registration');
+    });
+
+    it('can click login link in template', () => {
+      const loginLinkDe = linkDes[0];
+      const loginLink = links[0];
+
+      expect(loginLink.navigatedTo).toBeNull('link should not have navigated yet');
+
+      loginLinkDe.triggerEventHandler('click', null);
+      fixture.detectChanges();
+
+      expect(loginLink.navigatedTo).toBe('/start/sign_in');
     });
   }
 

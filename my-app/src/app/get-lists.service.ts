@@ -7,7 +7,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import {Headers, URLSearchParams} from '@angular/http';
-import {Router} from '@angular/router';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -21,10 +20,11 @@ import {IResponse} from './response';
 export class GetListsService {
 
   private listUrl = 'http://localhost:1337';
+
   private headers = new Headers({'Content-Type': 'application/json', 'Authorization': 'Bearer ' + JSON.parse(localStorage.getItem('mean-token')).token});
   // private params = new URLSearchParams();
 
-  constructor(private http: Http, private router: Router) { }
+  constructor(private http: Http) { }
 
   getLists(): Observable<FormatList[]> {
     return this.http.get(this.listUrl + '/list', {headers: this.headers})

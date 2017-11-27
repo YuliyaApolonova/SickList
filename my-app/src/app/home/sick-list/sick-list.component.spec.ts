@@ -5,6 +5,7 @@ import { SickListComponent } from './sick-list.component';
 import { CurrentDataService} from '../../current-data.service';
 import {GetListsService} from "../../get-lists.service";
 import { HttpModule} from "@angular/http";
+import {FormsModule} from '@angular/forms';
 
 
 import {GetListsStub} from './fake-getLists.service';
@@ -34,7 +35,7 @@ describe('SickListComponent', () => {
 
       ],
       imports: [
-        HttpModule
+        HttpModule, FormsModule
       ]
     })
     .compileComponents();

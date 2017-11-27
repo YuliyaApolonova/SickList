@@ -60,23 +60,23 @@ describe('AppComponent', () => {
       expect(comp).not.toBeNull();
     });
 
-    it('can get RouterLinks from template', () => {
-      expect(links.length).toBe(2, 'should have 2 links');
-      expect(links[0].linkParams).toBe('/start', '1st link should go to StartPage');
-      expect(links[1].linkParams).toBe('/home', '1st link should go to Home');
-    });
+    // it('can get RouterLinks from template', () => {
+    //   expect(links.length).toBe(2, 'should have 2 links');
+    //   expect(links[0].linkParams).toBe('/start', '1st link should go to StartPage');
+    //   expect(links[1].linkParams).toBe('/home', '1st link should go to Home');
+    // });
 
-    it('can click home link in template', () => {
-      const homeLinkDe = linkDes[1];
-      const homeLink = links[1];
-
-      expect(homeLink.navigatedTo).toBeNull('link should not have navigated yet');
-
-      homeLinkDe.triggerEventHandler('click', null);
-      fixture.detectChanges();
-
-      expect(homeLink.navigatedTo).toBe('/home');
-    });
+    // it('can click home link in template', () => {
+    //   const homeLinkDe = linkDes[1];
+    //   const homeLink = links[1];
+    //
+    //   expect(homeLink.navigatedTo).toBeNull('link should not have navigated yet');
+    //
+    //   homeLinkDe.triggerEventHandler('click', null);
+    //   fixture.detectChanges();
+    //
+    //   expect(homeLink.navigatedTo).toBe('/home');
+    // });
   }
 
 });

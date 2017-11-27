@@ -1,18 +1,28 @@
 import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {FormsModule} from "@angular/forms";
+import {RouterTestingModule} from '@angular/router/testing';
 
 import { LoginComponent } from './login.component';
+import {AuthService} from '../../auth.service';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
+  class authServiceStub {
+
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
       imports: [
-        FormsModule
+        FormsModule,
+        RouterTestingModule
+      ],
+      providers: [
+        {provide: AuthService, useClass: authServiceStub}
       ]
     })
     .compileComponents();

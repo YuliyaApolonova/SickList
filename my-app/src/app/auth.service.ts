@@ -13,6 +13,8 @@ import 'rxjs/add/operator/delay';
 import {ICurrentUser} from './currentUser';
 import {Router} from '@angular/router';
 
+import {IResponse} from './response';
+
 @Injectable()
 export class AuthService {
 
@@ -104,6 +106,12 @@ export class AuthService {
         }
       })
       .catch(this.handleError);
+  }
+
+  forgotPassword(email): Observable<void>{
+    return this.http.post('http://localhost:1337/forgot-password', JSON.stringify(email), {headers: new Headers({'Content-Type': 'application/json'})})
+      .map((response: Response) => response.json() as IResponse)
+      .catch(this.handleError)
   }
 
   private handleError(error: any): Observable<any> {

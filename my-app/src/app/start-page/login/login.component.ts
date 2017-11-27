@@ -1,7 +1,6 @@
 import { Component} from '@angular/core';
 import { Router } from '@angular/router';
 import {User} from './user';
-import {GetListsService} from '../../get-lists.service';
 import {AuthService} from '../../auth.service';
 
 @Component({
@@ -11,6 +10,7 @@ import {AuthService} from '../../auth.service';
 })
 
 export class LoginComponent  {
+
         /****stub***/
   // users: User[] = [
   //   {'username': 'Vasya', 'password': 'Vasya'}
@@ -21,6 +21,9 @@ export class LoginComponent  {
   model = new User('', '');
   submitted = false;
   response = '';
+
+  showHelpPanelInput = false;
+  usrEmail: string;
 
   onSubmit(): void {
     this.submitted = true;
@@ -62,6 +65,16 @@ export class LoginComponent  {
     //   }
     // })
 
+  }
+
+  showHelpPanel(): void {
+    this.showHelpPanelInput = true;
+  }
+
+  forgotPassword(): void {
+    console.log('Forgot password function');
+    this.authService.forgotPassword(this.usrEmail)
+      .subscribe((message) => console.log(message));
   }
 
 }

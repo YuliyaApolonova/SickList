@@ -43,7 +43,6 @@ export class AuthService {
       .catch(this.handleError);
   }
 
-
   // login(username: string, password: string): Observable<boolean> {
   //   return this.http.post('http://localhost:1337/login', JSON.stringify({username: username, password: password}), {headers: this.headers})
   //     .map((response: Response) => response.json() as boolean)

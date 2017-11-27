@@ -26,16 +26,56 @@ const makeLists = () => [
 ////////  Tests  /////////////
 describe('GetListsService (mockBackend)', () => {
 
+  let service: GetListsService;
   beforeEach( async(() => {
     TestBed.configureTestingModule({
       imports: [ HttpModule ],
       providers: [
         GetListsService,
         { provide: XHRBackend, useClass: MockBackend }
+
       ]
     })
       .compileComponents();
+
+    let store = {};
+    const mockLocalStorage = {
+      getItem: (key: string): string => {
+        console.log(store[key]);
+        return key in store ? store[key] : null;
+      },
+      setItem: (key: string, value: string) => {
+        store[key] = `${value}`;
+      },
+      removeItem: (key: string) => {
+        delete store[key];
+      },
+      clear: () => {
+        // store = {};
+        delete store['mean-token'];
+      }
+    };
+
+    spyOn(localStorage, 'getItem')
+      .and.callFake(mockLocalStorage.getItem);
+    spyOn(localStorage, 'setItem')
+      .and.callFake(mockLocalStorage.setItem);
+    spyOn(localStorage, 'removeItem')
+      .and.callFake(mockLocalStorage.removeItem);
+    spyOn(localStorage, 'clear')
+      .and.callFake(mockLocalStorage.clear);
+
+    localStorage.setItem('mean-token', JSON.stringify({"token": '12345'}));
+    console.log(localStorage.getItem('mean-token'));
+
+    service = TestBed.get(GetListsService);
+
   }));
+
+
+  it('should create the service', () => {
+    expect(service).toBeTruthy();
+  });
 
   it('can instantiate service when inject service',
     inject([GetListsService], (service: GetListsService) => {
@@ -77,6 +117,10 @@ describe('GetListsService (mockBackend)', () => {
         .map(lists => {
           expect(lists.length).toBe(fakeLists.length,
             'should have expected no. of lists');
+          expect(lists[0]).toEqual(fakeLists[0]);
+          expect(lists[1]).toEqual(fakeLists[1]);
+          expect(lists[2]).toEqual(fakeLists[2]);
+          expect(lists[3]).toEqual(fakeLists[3]);
         });
     })));
 

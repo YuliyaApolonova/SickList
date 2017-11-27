@@ -1,18 +1,28 @@
-import { async, ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, inject, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 import { AddListComponent } from './add-list.component';
 import {CurrentDataService} from '../../current-data.service';
+import {GetListsService} from '../../get-lists.service';
 import {FormsModule} from "@angular/forms";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {RouterTestingModule} from '@angular/router/testing';
+
+import {NgbCalendar, NgbCalendarGregorian} from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-calendar';
+import {NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-parser-formatter';
 
 describe('AddListComponent', () => {
   let component: AddListComponent;
   let fixture: ComponentFixture<AddListComponent>;
   let componentCurrentDataService: CurrentDataService; // the actually injected service
+  let componentGetListsService: GetListsService;
   let currentDataService: CurrentDataService;
+  let getListsService: GetListsService;
   let form: DebugElement;
+  let dateFrom: DebugElement;
+  let dateTo: DebugElement;
+  // let type: HTMLInputElement;
   // let form: HTMLElement;
 
   let currentDataServiceStub = {
@@ -25,14 +35,26 @@ describe('AddListComponent', () => {
     }
   };
 
+  let getListsServiceStub = {
+
+  };
+
   beforeEach(async(() => {
 
     TestBed.configureTestingModule({
-      declarations: [ AddListComponent ],
-      providers: [ {provide: CurrentDataService, useValue: currentDataServiceStub } ],
-      imports: [ FormsModule, NgbModule]
+      declarations: [
+        AddListComponent
+      ],
+      providers: [
+        {provide: CurrentDataService, useValue: currentDataServiceStub },
+        {provide: GetListsService, useValue: getListsServiceStub},
+        {provide: NgbCalendar, useValue:  NgbCalendarGregorian},
+        {provide: NgbDateParserFormatter, useValue: NgbDateParserFormatter}
+      ],
+      imports: [ FormsModule, NgbModule, RouterTestingModule]
     })
     .compileComponents();
+
   }));
 
   beforeEach(() => {
@@ -45,7 +67,13 @@ describe('AddListComponent', () => {
     componentCurrentDataService = currentDataService;
     currentDataService = TestBed.get(CurrentDataService);
 
+    getListsService = fixture.debugElement.injector.get(GetListsService);
+    componentGetListsService = getListsService;
+    getListsService = TestBed.get(GetListsService);
+
     form = fixture.debugElement.query(By.css('#addListForm'));
+    dateFrom = fixture.debugElement.query(By.css('#dateFrom'));
+    dateTo = fixture.debugElement.query(By.css('#dateTo'));
     // form = de.nativeElement;
   });
 
@@ -58,17 +86,62 @@ describe('AddListComponent', () => {
       expect(service).toBe(componentCurrentDataService);
     }));
 
-  it('should set today date in minDate', () =>{
+  it('should inject the component\'s GetListsService instance',
+    inject([GetListsService], (service: GetListsService) => {
+      expect(service).toBe(componentGetListsService);
+    }));
+
+  it('should call function that set today date (minDate)', () =>{
+    spyOn(component, 'setMinDate');
+    component.setMinDate();
     expect(component.setMinDate).toHaveBeenCalled();
-    const date = currentDataService.getCurrentDate();
-    expect(component.minDate).toBe(date);
   });
 
-  it('Should take submit == true after submitting form', ()=>{
+  it('should set minDate', () =>{
+    // const date = currentDataService.getCurrentDate();
+    component.setMinDate();
+    expect(component.minDate).toEqual({
+      year: 2017,
+      month: 1,
+      day: 1
+    });
+  });
+
+  it('Should call addList function after submitting', ()=>{
+    spyOn(component, "onSubmit");
     form.triggerEventHandler('submit', null);
     fixture.detectChanges();
     expect(component.onSubmit).toHaveBeenCalled();
-    expect(component.submitted).toBe(true);
   });
+
+  it('should take submitted = true after submit', () => {
+   form.triggerEventHandler("submit", null); // used to simulate events
+   fixture.detectChanges();
+   expect(component.submitted).toBe(true);
+  });
+
+  // it("Should bind the input to the correct property" , fakeAsync(()=> {  // FAILED!!!!
+  //   fixture.detectChanges();
+  //   let type = fixture.debugElement.query(By.css('#type')).nativeElement;
+  //   type.value = 'test-value';
+  //   // fixture.detectChanges();
+  //   type.dispatchEvent(new Event('input'));
+  //   // fixture.whenStable().then( () => {
+  //   //   fixture.detectChanges();
+  //   tick();
+  //     expect(component.model.type).toEqual('test-value');
+  //   // })
+  //   // expect(component.model.dateFrom).toBe({year: 2018, month: 6, day: 4});
+  //   // expect(component.model.dateTo).toBe({year: 2018, month: 6, day: 5});
+  // }))
+
+  it("Should bind the input to the correct property" , fakeAsync(()=> { // FAILED!!!
+    let type = fixture.debugElement.query(By.css('#type')).nativeElement;
+    component.model.type = 'test value';
+    fixture.detectChanges();
+    tick(); // wait for async
+    fixture.detectChanges(); // update view
+      expect(type.value).toBe('test-value');
+  }))
 
 });

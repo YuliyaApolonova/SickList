@@ -1,7 +1,19 @@
 
 <h2> The whole list:</h2>
 <div>
-  <table class="table">
+  <span> Filter by: </span>
+  <button class="btn btn-primary">date</button>
+  <button class="btn btn-primary">type</button>
+
+  <span>See
+    Vacations <input type="checkbox" [(ngModel)]="showVacations" checked (change)="setFilter('vacations')">
+    Sick-leaves: <input type="checkbox" [(ngModel)]="showSickLeaves" checked (change)="setFilter('sickLeaves')">
+  </span>
+  <!--nglick=setFilter()-->
+
+
+
+  <table class="table table-fixed-header">
     <thead>
     <tr>
       <th>№</th>

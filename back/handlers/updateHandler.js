@@ -49,25 +49,6 @@ module.exports = {
                         console.log('Index of sickLeave: ' + index);
                         let updatedSickLeave = req.body;
                         console.log(updatedSickLeave);
-                        // User.findByIdAndUpdate(id,
-                        //     {
-                        //         $set: {
-                        //             "lists[index]": {
-                        //                 dateFrom: updatedSickLeave.dateFrom,
-                        //                 dateTo: updatedSickLeave.dateTo,
-                        //                 type: updatedSickLeave.type
-                        //             }
-                        //         }
-                        //     },
-                        //     {
-                        //         new: true
-                        //     },
-                        //     function(err, doc){
-                        //         if(err){
-                        //             console.log(err);
-                        //         }
-                        //     }
-                        // )
 
                         User.findById(id, function(err, doc){
                             if(err){
