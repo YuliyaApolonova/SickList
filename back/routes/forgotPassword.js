@@ -12,54 +12,66 @@ const smtpTransport = require('nodemailer-smtp-transport');
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
-router.post('/forgot-password', urlencodedParser, function(req, res) {
+router.post('/forgot-password', function(req, res) {
 
-    console.log('Checking email...');
+    const email = req.body.email;
 
-    // console.log(req.body);
-    //
-    // const email = req.body.email;
-    let message = {
-        "message": "success"
+    // res.status(200).json({
+    //             "data":"",
+    //             "message": 'success',
+    //             "type": "true"
+    //         });
+
+     const message = 'Your link for changing password: ' + 'http://localhost:4200/change-password' ;
+
+    const transporter = nodemailer.createTransport(smtpTransport({
+        service: 'Gmail',
+        auth: {
+            user: 'juliyaapl2602@gmail.com', // my mail
+            pass: 'melodika14'
+        }
+    }));
+
+    const mailOptions = {
+        from: 'juliyaapl2602@gmail.com', // sender address
+        to: email, // list of receivers 'yuliyaapl@mail.ru'
+        subject:  'Restoring password', // Subject line
+        text: message //, // plaintext body
+        // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
     };
-      // res.status(200).json({
-      //         "data":"",
-      //         "message": 'success',
-      //         "type": true
-      //     });
-    console.log(message);
-    res.send(message);
-    // const message = name + '! Thank you for registration. \n Your login: '  + username + '\n Your password: ' + password;
-    // const transporter = nodemailer.createTransport(smtpTransport({
-    //     service: 'Gmail',
-    //     auth: {
-    //         user: 'juliyaapl2602@gmail.com', // my mail
-    //         pass: 'melodika14'
-    //     }
-    // }));
-    //
-    // const mailOptions = {
-    //     from: 'juliyaapl2602@gmail.com', // sender address
-    //     to: recipient, // list of receivers 'yuliyaapl@mail.ru'
-    //     subject:  'Thanks for registration', // Subject line
-    //     text: message //, // plaintext body
-    //     // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
-    // };
-    //
-    // transporter.sendMail(mailOptions, function(error, info){
-    //     if(error){
-    //         console.log(error);
-    //         res.json({yo: 'error'});
-    //     }else{
-    //         console.log('Message sent: ' + info.response);
-    //         // res.json({yo: info.response});
-    //         res.redirect('/home');
-    //     };
-    // });
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+            console.log(error);
+            res.status(401).json({
+                "message": 'sending mail error',
+                "data": "",
+                "type": false
+            });
+        }else{
+            console.log('Message sent: ' + info.response);
+            // res.redirect('/home');
+            res.status(200).json({
+                "message": "letter was send",
+                "data": message,
+                "type": true
+            })
+        };
+    });
 
 });
 
-router.get('/forgot-password', function(req,res){
-    res.send(message);
-})
 module.exports = router;
+
+// v ar  hbs = require('nodemailer-express-handlebars'),
+//     email = process.env.MAILER_EMAIL_ID || 'auth_email_address@gmail.com',
+//     pass = process.env.MAILER_PASSWORD || 'auth_email_pass'
+// nodemailer = require('nodemailer');
+//
+// var smtpTransport = nodemailer.createTransport({
+//     service: process.env.MAILER_SERVICE_PROVIDER || 'Gmail',
+//     auth: {
+//         user: email,
+//         pass: pass
+//     }
+// });

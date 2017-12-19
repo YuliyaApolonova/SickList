@@ -32,8 +32,6 @@ router.post('/register', function(req, res) {
 
     user.setPassword(request.password);
 
-    //      фэй
-
     user.save(function(err){
         if(user){
             console.log('user exist');

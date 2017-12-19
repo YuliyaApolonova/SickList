@@ -2,6 +2,7 @@ import { Component} from '@angular/core';
 import { Router } from '@angular/router';
 import {User} from './user';
 import {AuthService} from '../../auth.service';
+import {IResponse} from '../../response';
 
 @Component({
   selector: 'app-login',
@@ -72,9 +73,12 @@ export class LoginComponent  {
   }
 
   forgotPassword(): void {
-    console.log('Forgot password function');
     this.authService.forgotPassword(this.usrEmail)
-      .subscribe((message) => console.log(message));
+      .subscribe((response: IResponse) =>
+        {
+        console.log(response.message);
+        }
+      );
   }
 
 }

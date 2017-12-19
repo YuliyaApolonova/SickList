@@ -36,8 +36,8 @@ module.exports = {
                         console.log('Unauthorised');
                         res.status(401).json({
                             "data": "",
+                                "type": false,
                             "message": "Unauthorised",
-                            "type": false
                         })
                     }
                     else{

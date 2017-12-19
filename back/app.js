@@ -68,19 +68,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
-app.use(expressSession({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
-}));
+// app.use(expressSession({
+//     secret: 'keyboard cat',
+//     resave: false,
+//     saveUninitialized: false
+// }));
 
-// app.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-// res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-// res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials");
-// res.header("Access-Control-Allow-Credentials", "true");
-//     next();
-// });
+app.use(function(req, res, next) {
+res.header("Access-Control-Allow-Origin", "*");
+res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials");
+res.header("Access-Control-Allow-Credentials", "true");
+    next();
+});
 
 //app.use(express.static(path.join(__dirname, 'public')));
 
@@ -95,6 +95,7 @@ app.use(addList);
 app.use(removeList);
 app.use(updateList);
 app.use(forgotPassword);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     let err = new Error('Not Found');

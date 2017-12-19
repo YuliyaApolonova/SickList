@@ -26,7 +26,11 @@ let UserSchema = new mongoose.Schema({
     },
     lists: Array,
     hash: String,
-    salt: String
+    salt: String,
+    isAdmin: {
+        type: Boolean,
+        default: false
+    }
 });
 
 UserSchema.methods.setPassword = function(password){
@@ -47,6 +51,7 @@ UserSchema.methods.generateJwt = function() {
         _id: this._id,
         email: this.email,
         username: this.username,
+        isAdmin: this.isAdmin,
         exp: parseInt(expiry.getTime() / 1000),
     }, "MY_SECRET");
 };

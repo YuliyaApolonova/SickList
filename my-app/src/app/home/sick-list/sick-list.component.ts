@@ -89,23 +89,23 @@ export class SickListComponent implements OnInit {
       .subscribe();
   }
 
-  setFilter(filter: string): void {
-    if(this.showVacations && this.  showSickLeaves ){
-      this.lists = this.copyLists;
-    }
-    else if(this.showSickLeaves || this.showSickLeaves){
-      switch(filter){
-        case 'vacations':
-          this.lists = this.lists.filter(list => {
-            return list.type.includes('vacation');
-          });
-          break;
-        case 'sick-leaves':
-          this.lists = this.lists.filter(list => {
-            return list.type.includes('sick-leave');
-          });
-          break;
-      }
-    }
-  }
+  // setFilter(filter: string): void {
+  //   if(this.showVacations && this.  showSickLeaves ){
+  //     this.lists = this.copyLists;
+  //   }
+  //   else if(this.showSickLeaves || this.showSickLeaves){
+  //     switch(filter){
+  //       case 'vacations':
+  //         this.lists = this.lists.filter(list => {
+  //           return list.type.includes('vacation');
+  //         });
+  //         break;
+  //       case 'sick-leaves':
+  //         this.lists = this.lists.filter(list => {
+  //           return list.type.includes('sick-leave');
+  //         });
+  //         break;
+  //     }
+  //   }
+  // }
 }

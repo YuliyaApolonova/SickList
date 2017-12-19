@@ -1,4 +1,4 @@
-import { async, ComponentFixture, inject, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import  { async, ComponentFixture, inject, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
@@ -22,6 +22,7 @@ describe('AddListComponent', () => {
   let form: DebugElement;
   let dateFrom: DebugElement;
   let dateTo: DebugElement;
+
   // let type: HTMLInputElement;
   // let form: HTMLElement;
 
@@ -36,7 +37,9 @@ describe('AddListComponent', () => {
   };
 
   let getListsServiceStub = {
+    createList(){
 
+    }
   };
 
   beforeEach(async(() => {
@@ -86,6 +89,11 @@ describe('AddListComponent', () => {
       expect(service).toBe(componentCurrentDataService);
     }));
 
+  it('service injected via inject(...) and TestBed.get(...) should be the same instance ',
+    inject([CurrentDataService], (service: CurrentDataService) => {
+      expect(service).toBe(currentDataService);
+    }));
+
   it('should inject the component\'s GetListsService instance',
     inject([GetListsService], (service: GetListsService) => {
       expect(service).toBe(componentGetListsService);
@@ -97,17 +105,8 @@ describe('AddListComponent', () => {
     expect(component.setMinDate).toHaveBeenCalled();
   });
 
-  it('should set minDate', () =>{
-    // const date = currentDataService.getCurrentDate();
-    component.setMinDate();
-    expect(component.minDate).toEqual({
-      year: 2017,
-      month: 1,
-      day: 1
-    });
-  });
 
-  it('Should call addList function after submitting', ()=>{
+  it('Should call onSubmit function after submitting', ()=>{
     spyOn(component, "onSubmit");
     form.triggerEventHandler('submit', null);
     fixture.detectChanges();
@@ -120,6 +119,27 @@ describe('AddListComponent', () => {
    expect(component.submitted).toBe(true);
   });
 
+  it('should call addList function with String arguments after submit ', () => {
+    spyOn(component, "addList");
+    component.model.type = 'test value';
+    component.model.dateFrom = {
+      year: 2017,
+      month: 11,
+      day: 11
+    }
+    component.model.dateTo = {
+      year: 2017,
+      month: 11,
+      day: 11
+    }
+    component.onSubmit();
+    expect(component.addList).toHaveBeenCalledWith(jasmine.any(String), jasmine.any(String), 'test value');
+  })
+
+
+  it('should navigate to home page when add new list', () => {
+
+  })
   // it("Should bind the input to the correct property" , fakeAsync(()=> {  // FAILED!!!!
   //   fixture.detectChanges();
   //   let type = fixture.debugElement.query(By.css('#type')).nativeElement;

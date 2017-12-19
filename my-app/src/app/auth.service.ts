@@ -3,7 +3,7 @@
  */
 
 import
-{ Injectable } from '@angular/core';
+  { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
@@ -40,6 +40,21 @@ export class AuthService {
     else{
       return false;
     }
+  }
+
+  checkAdmin(): boolean {
+   let token = this.token;
+   let payload;
+   if(token){
+     payload = token.split('.')[1];
+     payload = JSON.parse(atob(payload));
+     if(payload.isAdmin){
+       return true;
+     }
+     else{
+       return false;
+     }
+   }
   }
 
   currentUser(): ICurrentUser {
@@ -108,8 +123,8 @@ export class AuthService {
       .catch(this.handleError);
   }
 
-  forgotPassword(email): Observable<void>{
-    return this.http.post('http://localhost:1337/forgot-password', JSON.stringify(email), {headers: new Headers({'Content-Type': 'application/json'})})
+  forgotPassword(email): Observable<IResponse> {
+    return this.http.post('http://localhost:1337/forgot-password', JSON.stringify({email: email}), {headers: new Headers({'Content-Type': 'application/json'})})
       .map((response: Response) => response.json() as IResponse)
       .catch(this.handleError)
   }

@@ -8,7 +8,9 @@ import { RouterModule, Routes} from '@angular/router';
 import {SickListComponent} from './sick-list/sick-list.component';
 import {AddListComponent} from './add-list/add-list.component';
 import {HomeComponent} from './home.component';
+import {AdminComponent} from './admin/admin.component';
 import { AuthGuard } from '../auth-guard.service';
+import {AdminGuard} from '../admin-guard.service';
 const homeRoutes: Routes = [
 
   {
@@ -26,6 +28,12 @@ const homeRoutes: Routes = [
             path: 'addList',
             component: AddListComponent,
             canActivate: [AuthGuard]
+          },
+          {
+            path: 'admin',
+            component: AdminComponent,
+            canActivate: [AdminGuard]
+
           }
         ]
       }
