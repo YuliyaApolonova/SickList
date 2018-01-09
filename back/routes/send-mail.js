@@ -30,7 +30,7 @@ router.post('/send-mail', urlencodedParser, function(req, res) {
         service: 'Gmail',
         auth: {
             user: 'juliyaapl2602@gmail.com', // my mail
-            pass: 'melodika14'
+            pass: ''
         }
     }));
 

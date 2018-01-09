@@ -16,25 +16,19 @@ router.post('/forgot-password', function(req, res) {
 
     const email = req.body.email;
 
-    // res.status(200).json({
-    //             "data":"",
-    //             "message": 'success',
-    //             "type": "true"
-    //         });
-
      const message = 'Your link for changing password: ' + 'http://localhost:4200/change-password' ;
 
     const transporter = nodemailer.createTransport(smtpTransport({
         service: 'Gmail',
         auth: {
-            user: 'juliyaapl2602@gmail.com', // my mail
-            pass: 'melodika14'
+            user: 'juliyaapl2602@gmail.com', // sender address
+            pass: '' // sender password
         }
     }));
 
     const mailOptions = {
         from: 'juliyaapl2602@gmail.com', // sender address
-        to: email, // list of receivers 'yuliyaapl@mail.ru'
+        to: email, // list of receivers
         subject:  'Restoring password', // Subject line
         text: message //, // plaintext body
         // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead

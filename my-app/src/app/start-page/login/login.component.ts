@@ -22,6 +22,7 @@ export class LoginComponent  {
   model = new User('', '');
   submitted = false;
   response = '';
+  enterEmailMessage = 'Please, enter your email:';
 
   showHelpPanelInput = false;
   usrEmail: string;
@@ -76,7 +77,14 @@ export class LoginComponent  {
     this.authService.forgotPassword(this.usrEmail)
       .subscribe((response: IResponse) =>
         {
-        console.log(response.message);
+        //console.log(response.message);
+          if(response.type == true){
+            this.showHelpPanelInput = false;
+            alert('This service is not available yet. But the letter sent successfully');
+          }
+          else{
+            this.enterEmailMessage = 'There is an error. Please, try again';
+          }
         }
       );
   }

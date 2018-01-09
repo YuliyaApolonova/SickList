@@ -43,7 +43,7 @@
   <div id="forgot-password-panel">
   <button class="btn btn-link" (click)="showHelpPanel()">Forgot password</button>
   <div *ngIf="showHelpPanelInput" id="help-panel-form-container">
-    <p>Please, enter your email:</p>
+    <p>{{enterEmailMessage}}</p>
     <form>
     <input type="text" [(ngModel)]="usrEmail" name="userEmail" class="form-control" required>
     <button type="submit" class="btn btn-primary" (click)="forgotPassword()">Send me link for changing password</button>
@@ -52,6 +52,6 @@
   </div>
 </div>
 </div>
-{{response}}
+
 
 
